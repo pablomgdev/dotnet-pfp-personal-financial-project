@@ -8,11 +8,12 @@ EXPOSE 8081
 FROM mcr.microsoft.com/dotnet/sdk:8.0 AS build
 ARG BUILD_CONFIGURATION=Release
 WORKDIR /app
-COPY src/PfpPersonalFinanceProject.sln ./
-COPY src/Api/Api.csproj Api/
-COPY src/Application/Application.csproj Application/
-COPY src/Domain/Domain.csproj Domain/
-COPY src/Infrastructure/Infrastructure.csproj Infrastructure/
+COPY PfpPersonalFinanceProject.sln ./
+COPY src/Api/Api.csproj src/Api/
+COPY src/Application/Application.csproj src/Application/
+COPY src/Domain/Domain.csproj src/Domain/
+COPY src/Infrastructure/Infrastructure.csproj src/Infrastructure/
+COPY src/Test/Test.csproj src/Test/
 RUN dotnet restore
 COPY src/ .
 RUN dotnet build "Api/Api.csproj" -c $BUILD_CONFIGURATION -o /app/build
