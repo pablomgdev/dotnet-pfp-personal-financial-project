@@ -1,0 +1,93 @@
+/**************************************************************************************************\
+|                                Load this in dbdiagram.io                                         |
+\**************************************************************************************************/
+
+// IMPORTANT NOTE: IS NOT UPDATED AND IS ONLY TO KNOW WHY IT WAS DONE EVERY DECISIONS.
+//  DO NOT USED TO GENERATE THE POSTGRESQL FILE, JUST FOR WATCHING THE NOTES
+
+// Use DBML to define your database structure
+// Docs: https://dbml.dbdiagram.io/docs
+
+// datetime used because date times are saved in UTC
+// user_id is the id got from identity microservice
+
+Table operations {
+  id uniqueidentifier [primary key] // no predecible
+  internal_id integer [unique]  // to work in database with better performance
+  amount numeric  // money. Precision is important
+  description varchar(255)
+  periodicity_id integer  // if is not null, is not take into account when calculating total amounts because it is used to generate operations in this table
+  is_split bit
+  operation_not_split_internal_id bit // amount of money before been split
+  created_date datetime
+  updated_date datetime
+  is_deleted bit
+  deleted_date datetime
+  user_id uniqueidentifier
+}
+
+Table periodicities {
+  id integer [primary key]
+  "name" varchar(50)
+  created_date datetime
+  updated_date datetime
+  is_deleted bit
+  deleted_date datetime
+  user_id uniqueidentifier
+}
+
+Table categories {
+  id integer [primary key]
+  "name" varchar(50) [unique]
+  created_date datetime
+  updated_date datetime
+  is_deleted bit
+  deleted_date datetime
+  user_id uniqueidentifier
+}
+
+Table operations_categories {
+  operation_internal_id integer [primary key]
+  category_id integer [primary key]
+}
+
+Table accounts {
+  id uniqueidentifier [primary key]
+  internal_id integer [unique]
+  "name" varchar(50) [unique]
+  description varchar(255)
+  total_amount numeric // to track the operations (look at value). DANGEROUS!!
+  created_date datetime
+  updated_date datetime
+  is_deleted bit
+  deleted_date datetime
+  user_id uniqueidentifier
+}
+
+Table accounts_categories {
+  account_internal_id integer [primary key]
+  category_id integer [primary key]
+}
+
+Table limits {
+  id uniqueidentifier [primary key]
+  internal_id integer [unique]
+  category_id integer
+  amount numeric
+  created_date datetime
+  updated_date datetime
+  is_deleted bit
+  deleted_date datetime
+  user_id uniqueidentifier
+}
+
+// operations and periodicities
+Ref: operations.periodicity_id - periodicities.id
+// operations and categories
+Ref: operations.internal_id <> operations_categories.category_id
+Ref: categories.id <> operations_categories.operation_internal_id
+// accounts and categories
+Ref: accounts_categories.account_internal_id <> accounts.internal_id
+Ref: accounts_categories.category_id <> categories.id
+// limits and categories
+Ref: limits.internal_id - categories.id
