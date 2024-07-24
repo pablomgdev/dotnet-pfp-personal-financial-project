@@ -1,0 +1,41 @@
+services:
+  transactions-api:
+    container_name: pfp-transactions-api
+    # todo: check restart strategies to use the most appropriate one
+    build:
+      context: .
+      dockerfile: Dockerfile
+    ports:
+      - "8080:8080"
+    environment:
+      - ASPNETCORE_ENVIRONMENT=Development
+    depends_on:
+      - transactions-api-database
+
+  transactions-api-database:
+    image: postgres:16.3
+    container_name: pfp-transactions-api-database
+    # todo: check restart strategies to use the most appropriate one
+    restart: always
+    environment:
+      POSTGRES_DB: pfp-transactions-api-database
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres
+    ports:
+      - "5432:5432"
+    volumes:
+      # persist data
+      - ./database/data:/var/lib/postgresql/data
+      # initialization scripts
+      - ./database/0-init.sql:/docker-entrypoint-initdb.d/init.sql
+
+  pgadmin:
+    image: dpage/pgadmin4
+    container_name: pgadmin4
+    # TODO: check restart strategies to use the most appropriate one.
+    restart: always
+    ports:
+      - "8888:80"
+    environment:
+      PGADMIN_DEFAULT_EMAIL: postgres@example.es
+      PGADMIN_DEFAULT_PASSWORD: postgres
