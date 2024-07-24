@@ -11,14 +11,14 @@
 // datetime used because date times are saved in UTC
 // user_id is the id got from identity microservice
 
-Table operations {
+Table transactions {
   id uniqueidentifier [primary key] // no predecible
   internal_id integer [unique]  // to work in database with better performance
   amount numeric  // money. Precision is important
   description varchar(255)
-  periodicity_id integer  // if is not null, is not take into account when calculating total amounts because it is used to generate operations in this table
+  recurrence_id integer  // if is not null, is not take into account when calculating total amounts because it is used to generate transactions in this table
   is_split bit
-  operation_not_split_internal_id bit // amount of money before been split
+  transaction_not_split_internal_id bit // amount of money before been split
   created_date datetime
   updated_date datetime
   is_deleted bit
@@ -26,7 +26,7 @@ Table operations {
   user_id uniqueidentifier
 }
 
-Table periodicities {
+Table recurrences {
   id integer [primary key]
   "name" varchar(50)
   created_date datetime
@@ -46,17 +46,17 @@ Table categories {
   user_id uniqueidentifier
 }
 
-Table operations_categories {
-  operation_internal_id integer [primary key]
+Table transactions_categories {
+  transaction_internal_id integer [primary key]
   category_id integer [primary key]
 }
 
-Table accounts {
+Table funds {
   id uniqueidentifier [primary key]
   internal_id integer [unique]
   "name" varchar(50) [unique]
   description varchar(255)
-  total_amount numeric // to track the operations (look at value). DANGEROUS!!
+  total_amount numeric // to track the transactions (look at value). DANGEROUS!!
   created_date datetime
   updated_date datetime
   is_deleted bit
@@ -64,8 +64,8 @@ Table accounts {
   user_id uniqueidentifier
 }
 
-Table accounts_categories {
-  account_internal_id integer [primary key]
+Table funds_categories {
+  fund_internal_id integer [primary key]
   category_id integer [primary key]
 }
 
@@ -81,13 +81,13 @@ Table limits {
   user_id uniqueidentifier
 }
 
-// operations and periodicities
-Ref: operations.periodicity_id - periodicities.id
-// operations and categories
-Ref: operations.internal_id <> operations_categories.category_id
-Ref: categories.id <> operations_categories.operation_internal_id
-// accounts and categories
-Ref: accounts_categories.account_internal_id <> accounts.internal_id
-Ref: accounts_categories.category_id <> categories.id
+// transactions and recurrences
+Ref: transactions.recurrence_id - recurrences.id
+// transactions and categories
+Ref: transactions.internal_id <> transactions_categories.category_id
+Ref: categories.id <> transactions_categories.transaction_internal_id
+// funds and categories
+Ref: funds_categories.fund_internal_id <> funds.internal_id
+Ref: funds_categories.category_id <> categories.id
 // limits and categories
 Ref: limits.internal_id - categories.id

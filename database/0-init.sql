@@ -1,4 +1,4 @@
--- CREATE DATABASE "pfp-operations-database"
+-- CREATE DATABASE "pfp-transactions-database"
 --     WITH
 --     OWNER = postgres
 --     ENCODING            = 'UTF8'
@@ -10,13 +10,13 @@
 --     CONNECTION LIMIT    = -1
 --     IS_TEMPLATE         = False;
 
-CREATE TABLE "operations" (
+CREATE TABLE "transactions" (
   "id" UUID PRIMARY KEY,
   "internal_id" integer UNIQUE,
   "amount" numeric,
   "description" varchar(255),
   "is_split" bit,
-  "operation_not_split_internal_id" bit,
+  "transaction_not_split_internal_id" bit,
   "created_date" timestamp,
   "updated_date" timestamp,
   "is_deleted" bit,
@@ -34,27 +34,27 @@ CREATE TABLE "categories" (
   "user_id" UUID
 );
 
-CREATE TABLE "operations_categories" (
-  "operation_internal_id" integer,
+CREATE TABLE "transaction_categories" (
+  "transaction_internal_id" integer,
   "category_id" integer,
-  PRIMARY KEY ("operation_internal_id", "category_id"),
-  CONSTRAINT fk__operations_categories__operation_internal_id__operations FOREIGN KEY ("operation_internal_id") REFERENCES "operations" ("internal_id"),
-  CONSTRAINT fk__operations_categories__category_id__categories FOREIGN KEY ("category_id") REFERENCES "categories" ("id")
+  PRIMARY KEY ("transaction_internal_id", "category_id"),
+  CONSTRAINT fk__transaction_categories__transaction_internal_id__transaction FOREIGN KEY ("transaction_internal_id") REFERENCES "transaction" ("internal_id"),
+  CONSTRAINT fk__transaction_categories__category_id__categories FOREIGN KEY ("category_id") REFERENCES "categories" ("id")
 );
 
-CREATE TABLE "periodicities" (
+CREATE TABLE "recurrences" (
   "id" integer PRIMARY KEY,
-  "operation_internal_id" integer,
+  "transaction_internal_id" integer,
   "name" varchar(50),
   "created_date" timestamp,
   "updated_date" timestamp,
   "is_deleted" bit,
   "deleted_date" timestamp,
   "user_id" UUID,
-  CONSTRAINT fk__periodicities__operation_internal_id__operations FOREIGN KEY ("operation_internal_id") REFERENCES "operations" ("internal_id")
+  CONSTRAINT fk__recurrences__transaction_internal_id__transaction FOREIGN KEY ("transaction_internal_id") REFERENCES "transaction" ("internal_id")
 );
 
-CREATE TABLE "accounts" (
+CREATE TABLE "funds" (
   "id" UUID PRIMARY KEY,
   "internal_id" integer UNIQUE,
   "name" varchar(50) UNIQUE,
@@ -67,12 +67,12 @@ CREATE TABLE "accounts" (
   "user_id" UUID
 );
 
-CREATE TABLE "accounts_categories" (
-  "account_internal_id" integer,
+CREATE TABLE "funds_categories" (
+  "fund_internal_id" integer,
   "category_id" integer,
-  PRIMARY KEY ("account_internal_id", "category_id"),
-  CONSTRAINT fk__accounts_categories__account_internal_id__accounts FOREIGN KEY ("account_internal_id") REFERENCES "accounts" ("internal_id"),
-  CONSTRAINT fk__accounts_categories__category_id__categories FOREIGN KEY ("category_id") REFERENCES "categories" ("id")
+  PRIMARY KEY ("fund_internal_id", "category_id"),
+  CONSTRAINT fk__funds_categories__fund_internal_id__funds FOREIGN KEY ("fund_internal_id") REFERENCES "funds" ("internal_id"),
+  CONSTRAINT fk__funds_categories__category_id__categories FOREIGN KEY ("category_id") REFERENCES "categories" ("id")
 );
 
 CREATE TABLE "limits" (
