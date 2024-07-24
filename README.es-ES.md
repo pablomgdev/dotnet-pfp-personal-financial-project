@@ -20,7 +20,7 @@
 - **Docker**
 
 ### Documentación
-La documentación se puede encontrar en el **README.md**. A medida que vaya aumentando se ubicará en la carpeta **doc/** del proyecto.
+La documentación se puede encontrar en el **README.md**. A medida que vaya aumentando se ubicará en la carpeta [doc/](doc) del proyecto.
 
 #### Base de datos
 La documentación de la base de datos se puede encontrar en [doc/database](doc/database/).
