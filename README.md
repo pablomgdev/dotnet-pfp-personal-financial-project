@@ -23,4 +23,4 @@ Documentation can be found in README.md. As it increases in size, it will be mov
 Database documentation can be found in [doc/database](doc/database/).
 
 ## Functionality
-Functionality and its status can be found in [doc/functionality](doc/functionality).
+Functionality and its status can be found in [doc/functionality](doc/functionality/README.md).

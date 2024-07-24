@@ -26,4 +26,4 @@ La documentación se puede encontrar en el **README.md**. A medida que vaya aume
 La documentación de la base de datos se puede encontrar en [doc/database](doc/database/).
 
 ## Funcionalidades
-Las funcionalidades del proyecto y su estado pueden verse en [doc/functionality](doc/functionality).
+Las funcionalidades del proyecto y su estado pueden verse en [doc/functionality/README.es-ES.md](doc/functionality/README.es-ES.md).
