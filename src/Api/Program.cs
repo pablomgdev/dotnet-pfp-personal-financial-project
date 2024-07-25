@@ -1,6 +1,7 @@
 using System.Reflection;
+using Api.Options;
 using Asp.Versioning;
-using Microsoft.OpenApi.Models;
+using Asp.Versioning.ApiExplorer;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -11,12 +12,10 @@ builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen(options =>
 {
-    options.SwaggerDoc("v1", new OpenApiInfo { Title = "Personal Finance Project API", Version = "v1" });
-    options.SwaggerDoc("v2", new OpenApiInfo { Title = "Personal Finance Project API", Version = "v2" });
-    
     var xmlFilename = $"{Assembly.GetExecutingAssembly().GetName().Name}.xml";
     options.IncludeXmlComments(Path.Combine(AppContext.BaseDirectory, xmlFilename));
 });
+builder.Services.ConfigureOptions<ConfigureSwaggerOptions>();
 
 // Add API versioning.
 builder.Services
@@ -45,7 +44,12 @@ if (app.Environment.IsDevelopment())
     app.UseSwagger();
     app.UseSwaggerUI(options =>
     {
-        options.SwaggerEndpoint("/swagger/v1/swagger.json", "Personal Finance Project API v1");
+        var provider = app.Services.GetRequiredService<IApiVersionDescriptionProvider>();
+        foreach (var description in provider.ApiVersionDescriptions)
+            options.SwaggerEndpoint(
+                $"/swagger/{description.GroupName}/swagger.json",
+                description.ApiVersion.ToString()
+            );
     });
 }
 

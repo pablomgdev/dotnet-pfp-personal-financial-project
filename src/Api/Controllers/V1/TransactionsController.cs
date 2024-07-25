@@ -15,7 +15,7 @@ public class TransactionsController(ILogger<TransactionsController> logger) : Ap
     /// <param name="request">Request data to filter the transactions.</param>
     /// <returns>Returns all the incomes and expenses.</returns>
     /// <response code="200">Incomes and expenses returned successfully.</response>
-    [ApiVersion("1.0")]
+    [MapToApiVersion("1.0")]
     [HttpGet]
     [ProducesResponseType(StatusCodes.Status200OK)]
     public async Task<ActionResult<GetTransactionsResponse>> Get([FromQuery] GetTransactionsRequest request)
