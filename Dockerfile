@@ -10,6 +10,7 @@ ARG BUILD_CONFIGURATION=Release
 WORKDIR /app
 COPY PfpPersonalFinanceProject.sln ./
 COPY src/Api/Api.csproj src/Api/
+COPY src/Contracts/Contracts.csproj src/Contracts/
 COPY src/Application/Application.csproj src/Application/
 COPY src/Domain/Domain.csproj src/Domain/
 COPY src/Infrastructure/Infrastructure.csproj src/Infrastructure/
