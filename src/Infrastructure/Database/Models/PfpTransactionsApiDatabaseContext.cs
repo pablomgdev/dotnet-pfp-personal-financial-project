@@ -1,6 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using Microsoft.EntityFrameworkCore;
+﻿using Microsoft.EntityFrameworkCore;
 
 namespace Infrastructure.Database.Models;
 
@@ -25,10 +23,15 @@ public partial class PfpTransactionsApiDatabaseContext : DbContext
 
     public virtual DbSet<Transaction> Transactions { get; set; }
 
+    // TODO: save connection string in a configuration file.
     protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
-#warning To protect potentially sensitive information in your connection string, you should move it out of source code. You can avoid scaffolding the connection string by using the Name= syntax to read it from configuration - see https://go.microsoft.com/fwlink/?linkid=2131148. For more guidance on storing connection strings, see https://go.microsoft.com/fwlink/?LinkId=723263.
-        => optionsBuilder.UseNpgsql("Host=localhost;Port=5432;Database=pfp-transactions-api-database;Username=postgres;Password=postgres;");
+    {
+        optionsBuilder.UseNpgsql(
+            "Host=localhost;Port=5432;Database=pfp-transactions-api-database;Username=postgres;Password=postgres;");
+    }
 
+    // TODO: refactor OnModelCreating method by using IEntityTypeConfiguration interface for each entity.
+    //  see: https://learn.microsoft.com/en-us/ef/core/modeling/#grouping-configuration
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
         modelBuilder.Entity<Category>(entity =>
