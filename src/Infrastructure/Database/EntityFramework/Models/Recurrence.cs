@@ -1,10 +1,8 @@
-﻿using System;
-using System.Collections;
-using System.Collections.Generic;
+﻿using System.Collections;
 
-namespace Infrastructure.Database.Models;
+namespace Infrastructure.Database.EntityFramework.Models;
 
-public partial class Recurrence
+public class Recurrence
 {
     public int Id { get; set; }
 

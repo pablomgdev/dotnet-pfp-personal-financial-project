@@ -1,6 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
 
-namespace Infrastructure.Database.Models;
+namespace Infrastructure.Database.EntityFramework.Models;
 
 public partial class PfpTransactionsApiDatabaseContext : DbContext
 {
