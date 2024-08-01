@@ -1,7 +1,11 @@
 using System.Reflection;
+using System.Text.Json.Serialization;
 using Api.Options;
 using Asp.Versioning;
 using Asp.Versioning.ApiExplorer;
+using Domain.Transactions.Repositories;
+using Infrastructure.Database.EntityFramework.Implementations;
+using Infrastructure.Database.EntityFramework.Models;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -35,6 +39,15 @@ builder.Services
         options.GroupNameFormat = "'v'VVV";
         options.SubstituteApiVersionInUrl = true;
     });
+
+builder.Services.ConfigureHttpJsonOptions(options =>
+{
+    options.SerializerOptions.DefaultIgnoreCondition = JsonIgnoreCondition.WhenWritingNull;
+});
+
+// Dependency injection
+builder.Services.AddSingleton<PfpTransactionsApiDatabaseContext>();
+builder.Services.AddSingleton<ITransactionsRepository, EfTransactionsRepository>();
 
 var app = builder.Build();
 

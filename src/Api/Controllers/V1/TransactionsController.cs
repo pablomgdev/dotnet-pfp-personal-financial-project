@@ -10,7 +10,7 @@ namespace Api.Controllers.V1;
 [Produces("application/json")]
 public class TransactionsController(
     ILogger<TransactionsController> logger,
-    TransactionGetter transactionGetter
+    TransactionsGetter transactionsGetter
 ) : ApiControllerBase
 {
     /// <summary>
@@ -26,10 +26,21 @@ public class TransactionsController(
     [ProducesResponseType(StatusCodes.Status500InternalServerError)]
     public async Task<ActionResult<GetTransactionsResponse>> Get([FromQuery] GetTransactionsRequest request)
     {
-        var transactions = transactionGetter.Get();
-        return new GetTransactionsResponse(transactions.Select(domainTransaction => new Transaction
-        {
-            Id = domainTransaction.Id.Value
-        }).ToList());
+        var transactions = await transactionsGetter.Get();
+        var responseData = transactions
+            .Select(domainTransaction => new Transaction
+            {
+                Id = domainTransaction.Id.Value,
+                Amount = domainTransaction.Amount.Value,
+                Description = domainTransaction.Description.Value,
+                CreatedDate = domainTransaction.CreatedDate,
+                DeletedDate = domainTransaction.DeletedDate,
+                IsDeleted = domainTransaction.IsDeleted,
+                IsSplit = domainTransaction.IsSplit,
+                UpdatedDate = domainTransaction.UpdatedDate,
+                TransactionNotSplitInternalId = domainTransaction.TransactionNotSplitInternalId,
+                UserId = domainTransaction.UserId.Value
+            }).ToList();
+        return new GetTransactionsResponse(responseData);
     }
 }

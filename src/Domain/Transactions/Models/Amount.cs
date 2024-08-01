@@ -1,14 +1,14 @@
 namespace Domain.Transactions.Models;
 
-public class TransactionId : IValueObject
+public class Amount : IValueObject
 {
-    public TransactionId(Guid value)
+    public Amount(decimal? value)
     {
         Value = value;
         IsValid();
     }
 
-    public Guid Value { get; set; }
+    public decimal? Value { get; set; }
 
     public bool IsValid()
     {

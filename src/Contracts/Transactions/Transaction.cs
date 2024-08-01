@@ -21,9 +21,4 @@ public class Transaction
     public DateTime? DeletedDate { get; set; }
 
     public Guid? UserId { get; set; }
-
-    // TODO: add missing properties as nullable to be able of reduce the json response size.
-    // public virtual ICollection<Recurrence> Recurrences { get; set; } = new List<Recurrence>();
-    //
-    // public virtual ICollection<Category> Categories { get; set; } = new List<Category>();
 }
