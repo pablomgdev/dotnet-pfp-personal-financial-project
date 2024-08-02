@@ -1,4 +1,4 @@
-namespace Domain.User;
+namespace Domain.User.Models;
 
 public class UserId : IValueObject
 {

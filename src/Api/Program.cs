@@ -1,6 +1,7 @@
 using System.Reflection;
 using System.Text.Json.Serialization;
 using Api.Options;
+using Application.Transactions.Get;
 using Asp.Versioning;
 using Asp.Versioning.ApiExplorer;
 using Domain.Transactions.Repositories;
@@ -46,6 +47,12 @@ builder.Services.ConfigureHttpJsonOptions(options =>
 });
 
 // Dependency injection
+// Application
+builder.Services.AddSingleton<TransactionsGetter>();
+
+// Domain
+
+// Infrastructure
 builder.Services.AddSingleton<PfpTransactionsApiDatabaseContext>();
 builder.Services.AddSingleton<ITransactionsRepository, EfTransactionsRepository>();
 

@@ -1,10 +1,11 @@
 namespace Domain.Transactions.Models;
 
-public class Description : IValueObject
+public class TransactionDescription : IValueObject
 {
-    public Description(string? value)
+    public TransactionDescription(string? value)
     {
         Value = value;
+        // TODO: add domain exceptions for each one (this would be TransactionDescriptionLengthException).
         if (!IsValid()) throw new Exception("Description cannot have more than 255 characters");
     }
 

@@ -1,8 +1,8 @@
 namespace Domain.Transactions.Models;
 
-public class Amount : IValueObject
+public class TransactionAmount : IValueObject
 {
-    public Amount(decimal? value)
+    public TransactionAmount(decimal? value)
     {
         Value = value;
         IsValid();

@@ -1,6 +1,6 @@
 using Domain.Transactions.Models;
 using Domain.Transactions.Repositories;
-using Domain.User;
+using Domain.User.Models;
 using Infrastructure.Database.EntityFramework.Models;
 using Microsoft.EntityFrameworkCore;
 using Transaction = Domain.Transactions.Models.Transaction;
@@ -14,8 +14,8 @@ public class EfTransactionsRepository(PfpTransactionsApiDatabaseContext context)
         var dbResult = await context.Transactions.ToListAsync();
         return dbResult.Select(result => new Transaction(
             new TransactionId(result.Id),
-            new Amount(result.Amount),
-            new Description(result.Description),
+            new TransactionAmount(result.Amount),
+            new TransactionDescription(result.Description),
             result.IsSplit != null && result.IsSplit.Get(0),
             result.TransactionNotSplitInternalId != null && result.TransactionNotSplitInternalId.Get(0),
             result.CreatedDate,

@@ -1,11 +1,11 @@
-using Domain.User;
+using Domain.User.Models;
 
 namespace Domain.Transactions.Models;
 
 public class Transaction(
     TransactionId id,
-    Amount amount,
-    Description description,
+    TransactionAmount transactionAmount,
+    TransactionDescription transactionDescription,
     bool isSplit,
     bool transactionNotSplitInternalId,
     DateTime? createdDate,
@@ -16,9 +16,9 @@ public class Transaction(
 {
     public TransactionId Id { get; set; } = id;
 
-    public Amount Amount { get; set; } = amount;
+    public TransactionAmount TransactionAmount { get; set; } = transactionAmount;
 
-    public Description Description { get; set; } = description;
+    public TransactionDescription TransactionDescription { get; set; } = transactionDescription;
 
     public bool? IsSplit { get; set; } = isSplit;
 

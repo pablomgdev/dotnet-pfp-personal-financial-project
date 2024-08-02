@@ -27,12 +27,13 @@ public class TransactionsController(
     public async Task<ActionResult<GetTransactionsResponse>> Get([FromQuery] GetTransactionsRequest request)
     {
         var transactions = await transactionsGetter.Get();
+        // TODO: add automapper to use it here.
         var responseData = transactions
             .Select(domainTransaction => new Transaction
             {
                 Id = domainTransaction.Id.Value,
-                Amount = domainTransaction.Amount.Value,
-                Description = domainTransaction.Description.Value,
+                Amount = domainTransaction.TransactionAmount.Value,
+                Description = domainTransaction.TransactionDescription.Value,
                 CreatedDate = domainTransaction.CreatedDate,
                 DeletedDate = domainTransaction.DeletedDate,
                 IsDeleted = domainTransaction.IsDeleted,
