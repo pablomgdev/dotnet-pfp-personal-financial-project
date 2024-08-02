@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Collections;
 using Microsoft.EntityFrameworkCore.Migrations;
 
 #nullable disable
@@ -20,7 +19,7 @@ namespace Infrastructure.Migrations
                     name = table.Column<string>(type: "character varying(50)", maxLength: 50, nullable: true),
                     created_date = table.Column<DateTime>(type: "timestamp without time zone", nullable: true),
                     updated_date = table.Column<DateTime>(type: "timestamp without time zone", nullable: true),
-                    is_deleted = table.Column<BitArray>(type: "bit(1)", nullable: true),
+                    is_deleted = table.Column<bool>(type: "boolean", nullable: true),
                     deleted_date = table.Column<DateTime>(type: "timestamp without time zone", nullable: true),
                     user_id = table.Column<Guid>(type: "uuid", nullable: true)
                 },
@@ -40,7 +39,7 @@ namespace Infrastructure.Migrations
                     total_amount = table.Column<decimal>(type: "numeric", nullable: true),
                     created_date = table.Column<DateTime>(type: "timestamp without time zone", nullable: true),
                     updated_date = table.Column<DateTime>(type: "timestamp without time zone", nullable: true),
-                    is_deleted = table.Column<BitArray>(type: "bit(1)", nullable: true),
+                    is_deleted = table.Column<bool>(type: "boolean", nullable: true),
                     deleted_date = table.Column<DateTime>(type: "timestamp without time zone", nullable: true),
                     user_id = table.Column<Guid>(type: "uuid", nullable: true)
                 },
@@ -58,11 +57,11 @@ namespace Infrastructure.Migrations
                     internal_id = table.Column<int>(type: "integer", nullable: false),
                     amount = table.Column<decimal>(type: "numeric", nullable: true),
                     description = table.Column<string>(type: "character varying(255)", maxLength: 255, nullable: true),
-                    is_split = table.Column<BitArray>(type: "bit(1)", nullable: true),
-                    transaction_not_split_internal_id = table.Column<BitArray>(type: "bit(1)", nullable: true),
+                    is_split = table.Column<bool>(type: "boolean", nullable: false),
+                    transaction_not_split_internal_id = table.Column<int>(type: "int", nullable: true),
                     created_date = table.Column<DateTime>(type: "timestamp without time zone", nullable: true),
                     updated_date = table.Column<DateTime>(type: "timestamp without time zone", nullable: true),
-                    is_deleted = table.Column<BitArray>(type: "bit(1)", nullable: true),
+                    is_deleted = table.Column<bool>(type: "boolean", nullable: false),
                     deleted_date = table.Column<DateTime>(type: "timestamp without time zone", nullable: true),
                     user_id = table.Column<Guid>(type: "uuid", nullable: true)
                 },
@@ -82,7 +81,7 @@ namespace Infrastructure.Migrations
                     amount = table.Column<decimal>(type: "numeric", nullable: true),
                     created_date = table.Column<DateTime>(type: "timestamp without time zone", nullable: true),
                     updated_date = table.Column<DateTime>(type: "timestamp without time zone", nullable: true),
-                    is_deleted = table.Column<BitArray>(type: "bit(1)", nullable: true),
+                    is_deleted = table.Column<bool>(type: "boolean", nullable: true),
                     deleted_date = table.Column<DateTime>(type: "timestamp without time zone", nullable: true),
                     user_id = table.Column<Guid>(type: "uuid", nullable: true)
                 },
@@ -127,7 +126,7 @@ namespace Infrastructure.Migrations
                     name = table.Column<string>(type: "character varying(50)", maxLength: 50, nullable: true),
                     created_date = table.Column<DateTime>(type: "timestamp without time zone", nullable: true),
                     updated_date = table.Column<DateTime>(type: "timestamp without time zone", nullable: true),
-                    is_deleted = table.Column<BitArray>(type: "bit(1)", nullable: true),
+                    is_deleted = table.Column<bool>(type: "boolean", nullable: true),
                     deleted_date = table.Column<DateTime>(type: "timestamp without time zone", nullable: true),
                     user_id = table.Column<Guid>(type: "uuid", nullable: true)
                 },

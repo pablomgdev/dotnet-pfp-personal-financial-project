@@ -16,11 +16,11 @@ public class EfTransactionsRepository(PfpTransactionsApiDatabaseContext context)
             new TransactionId(result.Id),
             new TransactionAmount(result.Amount),
             new TransactionDescription(result.Description),
-            result.IsSplit != null && result.IsSplit.Get(0),
-            result.TransactionNotSplitInternalId != null && result.TransactionNotSplitInternalId.Get(0),
+            result.IsSplit,
+            result.TransactionNotSplitInternalId,
             result.CreatedDate,
             result.UpdatedDate,
-            result.IsDeleted != null && result.IsDeleted.Get(0),
+            result.IsDeleted,
             result.DeletedDate,
             new UserId(result.UserId)));
     }

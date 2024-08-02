@@ -1,6 +1,4 @@
-﻿using System.Collections;
-
-namespace Infrastructure.Database.EntityFramework.Models;
+﻿namespace Infrastructure.Database.EntityFramework.Models;
 
 public class Limit
 {
@@ -16,7 +14,7 @@ public class Limit
 
     public DateTime? UpdatedDate { get; set; }
 
-    public BitArray? IsDeleted { get; set; }
+    public bool? IsDeleted { get; set; }
 
     public DateTime? DeletedDate { get; set; }
 

@@ -1,6 +1,4 @@
-﻿using System.Collections;
-
-namespace Infrastructure.Database.EntityFramework.Models;
+﻿namespace Infrastructure.Database.EntityFramework.Models;
 
 public class Recurrence
 {
@@ -14,7 +12,7 @@ public class Recurrence
 
     public DateTime? UpdatedDate { get; set; }
 
-    public BitArray? IsDeleted { get; set; }
+    public bool? IsDeleted { get; set; }
 
     public DateTime? DeletedDate { get; set; }
 

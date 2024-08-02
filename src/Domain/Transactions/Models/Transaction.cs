@@ -7,7 +7,7 @@ public class Transaction(
     TransactionAmount transactionAmount,
     TransactionDescription transactionDescription,
     bool isSplit,
-    bool transactionNotSplitInternalId,
+    int? transactionNotSplitInternalId,
     DateTime? createdDate,
     DateTime? updatedDate,
     bool isDeleted,
@@ -22,7 +22,7 @@ public class Transaction(
 
     public bool? IsSplit { get; set; } = isSplit;
 
-    public bool? TransactionNotSplitInternalId { get; set; } = transactionNotSplitInternalId;
+    public int? TransactionNotSplitInternalId { get; set; } = transactionNotSplitInternalId;
 
     public DateTime? CreatedDate { get; set; } = createdDate;
 

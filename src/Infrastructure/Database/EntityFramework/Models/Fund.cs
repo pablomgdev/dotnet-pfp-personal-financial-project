@@ -1,6 +1,4 @@
-﻿using System.Collections;
-
-namespace Infrastructure.Database.EntityFramework.Models;
+﻿namespace Infrastructure.Database.EntityFramework.Models;
 
 public class Fund
 {
@@ -18,7 +16,7 @@ public class Fund
 
     public DateTime? UpdatedDate { get; set; }
 
-    public BitArray? IsDeleted { get; set; }
+    public bool? IsDeleted { get; set; }
 
     public DateTime? DeletedDate { get; set; }
 

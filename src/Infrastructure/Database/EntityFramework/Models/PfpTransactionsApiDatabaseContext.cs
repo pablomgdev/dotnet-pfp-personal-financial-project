@@ -54,7 +54,7 @@ public partial class PfpTransactionsApiDatabaseContext : DbContext
                 .HasColumnType("timestamp without time zone")
                 .HasColumnName("deleted_date");
             entity.Property(e => e.IsDeleted)
-                .HasColumnType("bit(1)")
+                .HasColumnType("boolean")
                 .HasColumnName("is_deleted");
             entity.Property(e => e.Name)
                 .HasMaxLength(50)
@@ -91,7 +91,7 @@ public partial class PfpTransactionsApiDatabaseContext : DbContext
                 .IsRequired()
                 .HasColumnName("internal_id");
             entity.Property(e => e.IsDeleted)
-                .HasColumnType("bit(1)")
+                .HasColumnType("boolean")
                 .HasColumnName("is_deleted");
             entity.Property(e => e.Name)
                 .HasMaxLength(50)
@@ -144,7 +144,7 @@ public partial class PfpTransactionsApiDatabaseContext : DbContext
                 .HasColumnName("deleted_date");
             entity.Property(e => e.InternalId).HasColumnName("internal_id");
             entity.Property(e => e.IsDeleted)
-                .HasColumnType("bit(1)")
+                .HasColumnType("boolean")
                 .HasColumnName("is_deleted");
             entity.Property(e => e.UpdatedDate)
                 .HasColumnType("timestamp without time zone")
@@ -172,7 +172,7 @@ public partial class PfpTransactionsApiDatabaseContext : DbContext
                 .HasColumnType("timestamp without time zone")
                 .HasColumnName("deleted_date");
             entity.Property(e => e.IsDeleted)
-                .HasColumnType("bit(1)")
+                .HasColumnType("boolean")
                 .HasColumnName("is_deleted");
             entity.Property(e => e.Name)
                 .HasMaxLength(50)
@@ -214,13 +214,13 @@ public partial class PfpTransactionsApiDatabaseContext : DbContext
                 .IsRequired()
                 .HasColumnName("internal_id");
             entity.Property(e => e.IsDeleted)
-                .HasColumnType("bit(1)")
+                .HasColumnType("boolean")
                 .HasColumnName("is_deleted");
             entity.Property(e => e.IsSplit)
-                .HasColumnType("bit(1)")
+                .HasColumnType("boolean")
                 .HasColumnName("is_split");
             entity.Property(e => e.TransactionNotSplitInternalId)
-                .HasColumnType("bit(1)")
+                .HasColumnType("int")
                 .HasColumnName("transaction_not_split_internal_id");
             entity.Property(e => e.UpdatedDate)
                 .HasColumnType("timestamp without time zone")

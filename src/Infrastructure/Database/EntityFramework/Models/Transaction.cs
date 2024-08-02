@@ -1,6 +1,4 @@
-﻿using System.Collections;
-
-namespace Infrastructure.Database.EntityFramework.Models;
+﻿namespace Infrastructure.Database.EntityFramework.Models;
 
 public class Transaction
 {
@@ -12,15 +10,15 @@ public class Transaction
 
     public string? Description { get; set; }
 
-    public BitArray? IsSplit { get; set; }
+    public bool IsSplit { get; set; }
 
-    public BitArray? TransactionNotSplitInternalId { get; set; }
+    public int? TransactionNotSplitInternalId { get; set; }
 
     public DateTime? CreatedDate { get; set; }
 
     public DateTime? UpdatedDate { get; set; }
 
-    public BitArray? IsDeleted { get; set; }
+    public bool IsDeleted { get; set; }
 
     public DateTime? DeletedDate { get; set; }
 

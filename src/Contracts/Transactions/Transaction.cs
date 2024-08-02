@@ -10,7 +10,7 @@ public class Transaction
 
     public bool? IsSplit { get; set; }
 
-    public bool? TransactionNotSplitInternalId { get; set; }
+    public int? TransactionNotSplitInternalId { get; set; }
 
     public DateTime? CreatedDate { get; set; }
 
