@@ -34,11 +34,7 @@ public class TransactionsController(
                 Id = domainTransaction.Id.Value,
                 Amount = domainTransaction.TransactionAmount.Value,
                 Description = domainTransaction.TransactionDescription.Value,
-                CreatedDate = domainTransaction.CreatedDate,
-                DeletedDate = domainTransaction.DeletedDate,
-                IsDeleted = domainTransaction.IsDeleted,
                 IsSplit = domainTransaction.IsSplit,
-                UpdatedDate = domainTransaction.UpdatedDate,
                 TransactionNotSplitInternalId = domainTransaction.TransactionNotSplitInternalId,
                 UserId = domainTransaction.UserId.Value
             }).ToList();
