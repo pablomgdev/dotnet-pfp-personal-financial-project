@@ -1,3 +1,4 @@
+using System.Diagnostics;
 using Api.Controllers.Base;
 using Application.Transactions.Get;
 using Asp.Versioning;
@@ -9,8 +10,9 @@ namespace Api.Controllers.V1;
 [ApiVersion("1.0")]
 [Produces("application/json")]
 public class TransactionsController(
-    ILogger<TransactionsController> logger,
-    TransactionsGetter transactionsGetter
+    TransactionsGetter transactionsGetter,
+    // TODO: add a custom logger
+    ILogger<TransactionsController>? logger = null
 ) : ApiControllerBase
 {
     /// <summary>
@@ -26,8 +28,14 @@ public class TransactionsController(
     [ProducesResponseType(StatusCodes.Status500InternalServerError)]
     public async Task<ActionResult<GetTransactionsResponse>> Get([FromQuery] GetTransactionsRequest request)
     {
-        var transactions = await transactionsGetter.Get();
+        // TODO: fix error with efficiency.
         // TODO: add automapper to use it here.
+        // TODO: use DbContext instead of add singleton pfp context class in Program.cs.
+        var beforeGetTransactionsTimestamp = Stopwatch.GetTimestamp();
+        var transactions = await transactionsGetter.Get();
+        var afterGetTransactionsTimestamp = Stopwatch.GetTimestamp();
+        logger?.LogInformation(
+            $"transactionsGetter.Get() elapsed time: {Stopwatch.GetElapsedTime(beforeGetTransactionsTimestamp, afterGetTransactionsTimestamp)}");
         var responseData = transactions
             .Select(domainTransaction => new Transaction
             {
@@ -38,6 +46,9 @@ public class TransactionsController(
                 TransactionNotSplitInternalId = domainTransaction.TransactionNotSplitInternalId,
                 UserId = domainTransaction.UserId.Value
             }).ToList();
+        var afterGetResponseDataTransactionsTimestamp = Stopwatch.GetTimestamp();
+        logger?.LogInformation(
+            $"Get responseData (LINQ Select) elapsed time: {Stopwatch.GetElapsedTime(afterGetTransactionsTimestamp, afterGetResponseDataTransactionsTimestamp)}");
         return new GetTransactionsResponse(responseData);
     }
 }

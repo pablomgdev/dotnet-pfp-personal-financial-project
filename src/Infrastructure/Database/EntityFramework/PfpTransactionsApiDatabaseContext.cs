@@ -30,7 +30,7 @@ public partial class PfpTransactionsApiDatabaseContext : DbContext
         base.OnConfiguring(optionsBuilder);
         // Note: use as Host name the docker compose service name. If using dotnet ef command, change it to localhost.
         optionsBuilder.UseNpgsql(
-            "Host=pfp-transactions-api-database;Port=5432;Database=pfp-transactions-api-database;Username=postgres;Password=postgres;");
+            "Host=localhost;Port=5432;Database=pfp-transactions-api-database;Username=postgres;Password=postgres;");
     }
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
