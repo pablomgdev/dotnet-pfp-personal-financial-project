@@ -5,8 +5,8 @@ using Application.Transactions.Get;
 using Asp.Versioning;
 using Asp.Versioning.ApiExplorer;
 using Domain.Transactions.Repositories;
-using Infrastructure.Database.EntityFramework.Implementations;
-using Infrastructure.Database.EntityFramework.Models;
+using Infrastructure.Persistence.EntityFramework;
+using Infrastructure.Persistence.EntityFramework.Implementations;
 
 var builder = WebApplication.CreateBuilder(args);
 {

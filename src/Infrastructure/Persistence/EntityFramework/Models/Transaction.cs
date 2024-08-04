@@ -1,4 +1,4 @@
-﻿namespace Infrastructure.Database.EntityFramework.Models;
+﻿namespace Infrastructure.Persistence.EntityFramework.Models;
 
 public class Transaction
 {

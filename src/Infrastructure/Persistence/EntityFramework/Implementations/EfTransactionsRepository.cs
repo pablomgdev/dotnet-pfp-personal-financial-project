@@ -1,11 +1,10 @@
 using Domain.Transactions.Models;
 using Domain.Transactions.Repositories;
 using Domain.User.Models;
-using Infrastructure.Database.EntityFramework.Models;
 using Microsoft.EntityFrameworkCore;
 using Transaction = Domain.Transactions.Models.Transaction;
 
-namespace Infrastructure.Database.EntityFramework.Implementations;
+namespace Infrastructure.Persistence.EntityFramework.Implementations;
 
 public class EfTransactionsRepository(PfpTransactionsApiDatabaseContext context) : ITransactionsRepository
 {

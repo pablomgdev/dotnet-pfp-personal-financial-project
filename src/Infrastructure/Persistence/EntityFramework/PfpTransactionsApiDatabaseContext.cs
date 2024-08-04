@@ -1,7 +1,8 @@
-﻿using Infrastructure.Database.EntityFramework.Models.Configuration;
+﻿using Infrastructure.Persistence.EntityFramework.Models;
+using Infrastructure.Persistence.EntityFramework.Models.Configuration;
 using Microsoft.EntityFrameworkCore;
 
-namespace Infrastructure.Database.EntityFramework.Models;
+namespace Infrastructure.Persistence.EntityFramework;
 
 public partial class PfpTransactionsApiDatabaseContext : DbContext
 {

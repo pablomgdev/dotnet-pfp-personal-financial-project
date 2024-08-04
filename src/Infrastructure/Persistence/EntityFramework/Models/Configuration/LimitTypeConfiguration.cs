@@ -1,36 +1,40 @@
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
-namespace Infrastructure.Database.EntityFramework.Models.Configuration;
+namespace Infrastructure.Persistence.EntityFramework.Models.Configuration;
 
-public class CategoryTypeConfiguration : IEntityTypeConfiguration<Category>
+public class LimitTypeConfiguration : IEntityTypeConfiguration<Limit>
 {
-    public void Configure(EntityTypeBuilder<Category> builder)
+    public void Configure(EntityTypeBuilder<Limit> builder)
     {
-        builder.HasKey(e => e.Id).HasName("categories_pkey");
+        builder.HasKey(e => e.Id).HasName("limits_pkey");
 
-        builder.ToTable("categories");
+        builder.ToTable("limits");
 
-        builder.HasIndex(e => e.Name, "categories_name_key").IsUnique();
+        builder.HasIndex(e => e.InternalId, "limits_internal_id_key").IsUnique();
 
         builder.Property(e => e.Id)
             .ValueGeneratedNever()
             .HasColumnName("id");
+        builder.Property(e => e.Amount).HasColumnName("amount");
+        builder.Property(e => e.CategoryId).HasColumnName("category_id");
         builder.Property(e => e.CreatedDate)
             .HasColumnType("timestamp without time zone")
             .HasColumnName("created_date");
         builder.Property(e => e.DeletedDate)
             .HasColumnType("timestamp without time zone")
             .HasColumnName("deleted_date");
+        builder.Property(e => e.InternalId).HasColumnName("internal_id");
         builder.Property(e => e.IsDeleted)
             .HasColumnType("boolean")
             .HasColumnName("is_deleted");
-        builder.Property(e => e.Name)
-            .HasMaxLength(50)
-            .HasColumnName("name");
         builder.Property(e => e.UpdatedDate)
             .HasColumnType("timestamp without time zone")
             .HasColumnName("updated_date");
         builder.Property(e => e.UserId).HasColumnName("user_id");
+
+        builder.HasOne(d => d.Category).WithMany(p => p.Limits)
+            .HasForeignKey(d => d.CategoryId)
+            .HasConstraintName("fk__limits__category_id__categories");
     }
 }

@@ -1,15 +1,17 @@
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
-namespace Infrastructure.Database.EntityFramework.Models.Configuration;
+namespace Infrastructure.Persistence.EntityFramework.Models.Configuration;
 
-public class RecurrenceTypeConfiguration : IEntityTypeConfiguration<Recurrence>
+public class CategoryTypeConfiguration : IEntityTypeConfiguration<Category>
 {
-    public void Configure(EntityTypeBuilder<Recurrence> builder)
+    public void Configure(EntityTypeBuilder<Category> builder)
     {
-        builder.HasKey(e => e.Id).HasName("recurrences_pkey");
+        builder.HasKey(e => e.Id).HasName("categories_pkey");
 
-        builder.ToTable("recurrences");
+        builder.ToTable("categories");
+
+        builder.HasIndex(e => e.Name, "categories_name_key").IsUnique();
 
         builder.Property(e => e.Id)
             .ValueGeneratedNever()
@@ -26,15 +28,9 @@ public class RecurrenceTypeConfiguration : IEntityTypeConfiguration<Recurrence>
         builder.Property(e => e.Name)
             .HasMaxLength(50)
             .HasColumnName("name");
-        builder.Property(e => e.TransactionInternalId).HasColumnName("transaction_internal_id");
         builder.Property(e => e.UpdatedDate)
             .HasColumnType("timestamp without time zone")
             .HasColumnName("updated_date");
         builder.Property(e => e.UserId).HasColumnName("user_id");
-
-        builder.HasOne(d => d.TransactionInternal).WithMany(p => p.Recurrences)
-            .HasPrincipalKey(p => p.InternalId)
-            .HasForeignKey(d => d.TransactionInternalId)
-            .HasConstraintName("fk__recurrences__transaction_internal_id__transaction");
     }
 }

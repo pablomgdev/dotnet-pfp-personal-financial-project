@@ -1,22 +1,23 @@
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
-namespace Infrastructure.Database.EntityFramework.Models.Configuration;
+namespace Infrastructure.Persistence.EntityFramework.Models.Configuration;
 
-public class TransactionTypeConfiguration : IEntityTypeConfiguration<Transaction>
+public class FundTypeConfiguration : IEntityTypeConfiguration<Fund>
 {
-    public void Configure(EntityTypeBuilder<Transaction> builder)
+    public void Configure(EntityTypeBuilder<Fund> builder)
     {
-        builder.HasKey(e => e.Id).HasName("transactions_pkey");
+        builder.HasKey(e => e.Id).HasName("funds_pkey");
 
-        builder.ToTable("transactions");
+        builder.ToTable("funds");
 
-        builder.HasIndex(e => e.InternalId, "transactions_internal_id_key").IsUnique();
+        builder.HasIndex(e => e.InternalId, "funds_internal_id_key").IsUnique();
+
+        builder.HasIndex(e => e.Name, "funds_name_key").IsUnique();
 
         builder.Property(e => e.Id)
             .ValueGeneratedNever()
             .HasColumnName("id");
-        builder.Property(e => e.Amount).HasColumnName("amount");
         builder.Property(e => e.CreatedDate)
             .HasColumnType("timestamp without time zone")
             .HasColumnName("created_date");
@@ -32,34 +33,32 @@ public class TransactionTypeConfiguration : IEntityTypeConfiguration<Transaction
         builder.Property(e => e.IsDeleted)
             .HasColumnType("boolean")
             .HasColumnName("is_deleted");
-        builder.Property(e => e.IsSplit)
-            .HasColumnType("boolean")
-            .HasColumnName("is_split");
-        builder.Property(e => e.TransactionNotSplitInternalId)
-            .HasColumnType("int")
-            .HasColumnName("transaction_not_split_internal_id");
+        builder.Property(e => e.Name)
+            .HasMaxLength(50)
+            .HasColumnName("name");
+        builder.Property(e => e.TotalAmount).HasColumnName("total_amount");
         builder.Property(e => e.UpdatedDate)
             .HasColumnType("timestamp without time zone")
             .HasColumnName("updated_date");
         builder.Property(e => e.UserId).HasColumnName("user_id");
 
-        builder.HasMany(d => d.Categories).WithMany(p => p.TransactionInternals)
+        builder.HasMany(d => d.Categories).WithMany(p => p.FundInternals)
             .UsingEntity<Dictionary<string, object>>(
-                "TransactionsCategory",
+                "FundsCategory",
                 r => r.HasOne<Category>().WithMany()
                     .HasForeignKey("CategoryId")
                     .OnDelete(DeleteBehavior.ClientSetNull)
-                    .HasConstraintName("fk__transactions_categories__category_id__categories"),
-                l => l.HasOne<Transaction>().WithMany()
+                    .HasConstraintName("fk__funds_categories__category_id__categories"),
+                l => l.HasOne<Fund>().WithMany()
                     .HasPrincipalKey("InternalId")
-                    .HasForeignKey("TransactionInternalId")
+                    .HasForeignKey("FundInternalId")
                     .OnDelete(DeleteBehavior.ClientSetNull)
-                    .HasConstraintName("fk__transactions_categories__transaction_internal_id__transacti"),
+                    .HasConstraintName("fk__funds_categories__fund_internal_id__funds"),
                 j =>
                 {
-                    j.HasKey("TransactionInternalId", "CategoryId").HasName("transactions_categories_pkey");
-                    j.ToTable("transactions_categories");
-                    j.IndexerProperty<int>("TransactionInternalId").HasColumnName("transaction_internal_id");
+                    j.HasKey("FundInternalId", "CategoryId").HasName("funds_categories_pkey");
+                    j.ToTable("funds_categories");
+                    j.IndexerProperty<int>("FundInternalId").HasColumnName("fund_internal_id");
                     j.IndexerProperty<int>("CategoryId").HasColumnName("category_id");
                 });
     }
