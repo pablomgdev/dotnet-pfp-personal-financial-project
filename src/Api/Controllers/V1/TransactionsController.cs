@@ -29,9 +29,6 @@ public class TransactionsController(
     [ProducesResponseType(StatusCodes.Status500InternalServerError)]
     public async Task<ActionResult<GetTransactionsResponse>> Get([FromQuery] GetTransactionsRequest request)
     {
-        // TODO: fix error with efficiency (see dynamic program analysis > View ASP issues).
-        //  I think is a entity framework query problem. See this: https://learn.microsoft.com/en-us/ef/core/performance/efficient-querying
-        // TODO: see if a middleware can be created to log the elapsed time of each method called like below.
         // TODO: before continue, check all the TODOs and complete them.
         var beforeGetTransactionsTimestamp = Stopwatch.GetTimestamp();
         var transactions = await transactionsGetter.Get();
