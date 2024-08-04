@@ -1,8 +1,8 @@
 using System.Diagnostics;
 using Api.Controllers.Base;
+using Api.Mappers;
 using Application.Transactions.Get;
 using Asp.Versioning;
-using AutoMapper;
 using Contracts.Transactions;
 using Microsoft.AspNetCore.Mvc;
 
@@ -12,7 +12,6 @@ namespace Api.Controllers.V1;
 [Produces("application/json")]
 public class TransactionsController(
     TransactionsGetter transactionsGetter,
-    IMapper mapper,
     // TODO: add a custom logger
     ILogger<TransactionsController>? logger = null
 ) : ApiControllerBase
@@ -38,7 +37,9 @@ public class TransactionsController(
         var afterGetTransactionsTimestamp = Stopwatch.GetTimestamp();
         logger?.LogInformation(
             $"transactionsGetter.Get() elapsed time: {Stopwatch.GetElapsedTime(beforeGetTransactionsTimestamp, afterGetTransactionsTimestamp)}");
-        var responseData = transactions.Select(mapper.Map<Transaction>).ToList();
+        var responseData = transactions
+            .Select(domainTransaction => domainTransaction.MapToDto())
+            .ToList();
         var afterGetResponseDataTransactionsTimestamp = Stopwatch.GetTimestamp();
         logger?.LogInformation(
             $"Get responseData (LINQ Select) elapsed time: {Stopwatch.GetElapsedTime(afterGetTransactionsTimestamp, afterGetResponseDataTransactionsTimestamp)}");

@@ -4,14 +4,25 @@ public class Transaction
 {
     public Guid Id { get; set; }
 
+    public int? InternalId { get; set; }
+
     public decimal? Amount { get; set; }
 
     public string? Description { get; set; }
 
     public bool? IsSplit { get; set; }
 
-    // TODO: remove this property as it is used only in database.
     public int? TransactionNotSplitInternalId { get; set; }
 
+    public DateTime? CreatedDate { get; set; }
+
+    public DateTime? UpdatedDate { get; set; }
+
+    public bool IsDeleted { get; set; }
+
+    public DateTime? DeletedDate { get; set; }
+
     public Guid? UserId { get; set; }
+
+    // TODO: see recurrences and categories properties.
 }

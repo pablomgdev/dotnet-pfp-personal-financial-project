@@ -52,8 +52,6 @@ var builder = WebApplication.CreateBuilder(args);
     // Domain
 
     // Infrastructure
-    builder.Services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
-
     var databaseConnectionString = builder.Configuration.GetConnectionString("Database");
     builder.Services.AddDbContext<PfpTransactionsApiDatabaseContext>(
         options => { options.UseNpgsql(databaseConnectionString); },
