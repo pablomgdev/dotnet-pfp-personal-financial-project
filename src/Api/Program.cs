@@ -7,6 +7,7 @@ using Asp.Versioning.ApiExplorer;
 using Domain.Transactions.Repositories;
 using Infrastructure.Persistence.EntityFramework;
 using Infrastructure.Persistence.EntityFramework.Implementations;
+using Microsoft.EntityFrameworkCore;
 
 var builder = WebApplication.CreateBuilder(args);
 {
@@ -46,13 +47,17 @@ var builder = WebApplication.CreateBuilder(args);
 
     // Dependency injection
     // Application
-    builder.Services.AddSingleton<TransactionsGetter>();
+    builder.Services.AddTransient<TransactionsGetter>();
 
     // Domain
 
     // Infrastructure
-    builder.Services.AddSingleton<PfpTransactionsApiDatabaseContext>();
-    builder.Services.AddSingleton<ITransactionsRepository, EfTransactionsRepository>();
+    var databaseConnectionString = builder.Configuration.GetConnectionString("Database");
+    builder.Services.AddDbContext<PfpTransactionsApiDatabaseContext>(
+        options => { options.UseNpgsql(databaseConnectionString); },
+        ServiceLifetime.Singleton);
+
+    builder.Services.AddTransient<ITransactionsRepository, EfTransactionsRepository>();
 }
 
 var app = builder.Build();
