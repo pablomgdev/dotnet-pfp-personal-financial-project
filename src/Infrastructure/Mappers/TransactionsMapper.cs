@@ -31,21 +31,18 @@ public static class TransactionsMapper
         this Persistence.EntityFramework.Models.Transaction persistenceTransactionModel)
     {
         // TODO: see recurrences and categories values...
-        return new Transaction
-        (
+        return new Transaction(
             new TransactionId(persistenceTransactionModel.Id),
-            persistenceTransactionModel.InternalId,
             new TransactionAmount(persistenceTransactionModel.Amount),
             new TransactionDescription(persistenceTransactionModel.Description),
             persistenceTransactionModel.IsSplit,
-            persistenceTransactionModel.TransactionNotSplitInternalId,
+            // TODO see this. Maybe is a missing relation
+            null,
             persistenceTransactionModel.CreatedDate,
             persistenceTransactionModel.UpdatedDate,
             persistenceTransactionModel.IsDeleted,
             persistenceTransactionModel.DeletedDate,
             new UserId(persistenceTransactionModel.UserId)
-            // Recurrences = domainTransaction,
-            // Categories = domainTransaction,
         );
     }
 }

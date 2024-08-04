@@ -10,16 +10,16 @@ public static class TransactionsMapper
         return new Transaction
         {
             Id = domainTransaction.Id.Value,
-            InternalId = domainTransaction.InternalId,
-            Description = domainTransaction.TransactionDescription.Value,
-            Amount = domainTransaction.TransactionAmount.Value,
+            Description = domainTransaction.Description.Value,
+            Amount = domainTransaction.Amount.Value,
             IsSplit = domainTransaction.IsSplit,
-            TransactionNotSplitInternalId = domainTransaction.TransactionNotSplitInternalId,
             CreatedDate = domainTransaction.CreatedDate,
             UpdatedDate = domainTransaction.UpdatedDate,
             IsDeleted = domainTransaction.IsDeleted,
             DeletedDate = domainTransaction.DeletedDate,
-            UserId = domainTransaction.UserId.Value
+            UserId = domainTransaction.UserId.Value,
+            SplitTransactions = domainTransaction.SplitTransactions
+                ?.Select(splitTransaction => splitTransaction.MapToDto())
         };
     }
 }

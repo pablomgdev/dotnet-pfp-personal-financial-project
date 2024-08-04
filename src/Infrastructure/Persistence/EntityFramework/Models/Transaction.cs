@@ -4,6 +4,7 @@ public class Transaction
 {
     public Guid Id { get; set; }
 
+    // TODO: this must be not null
     public int? InternalId { get; set; }
 
     public decimal? Amount { get; set; }
@@ -12,6 +13,7 @@ public class Transaction
 
     public bool IsSplit { get; set; }
 
+    // TODO: make this FK to transactions table.
     public int? TransactionNotSplitInternalId { get; set; }
 
     public DateTime? CreatedDate { get; set; }

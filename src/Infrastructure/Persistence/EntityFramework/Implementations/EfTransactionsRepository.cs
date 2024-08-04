@@ -9,7 +9,7 @@ public class EfTransactionsRepository(PfpTransactionsApiDatabaseContext context)
 {
     public async Task<IEnumerable<Transaction>> Get()
     {
-        var dbResult = await context.Transactions.AsNoTracking().ToListAsync();
-        return dbResult.Select(databaseResult => databaseResult.MapToDomainModel());
+        var databaseResults = await context.Transactions.AsNoTracking().ToListAsync();
+        return databaseResults.Select(databaseResult => databaseResult.MapToDomainModel());
     }
 }

@@ -32,6 +32,8 @@ public class TransactionsController(
         // TODO: see why null values are returned in the json response: see ConfigureHttpJsonOptions in Program.cs.
         // TODO: fix error with efficiency (see dynamic program analysis > View ASP issues).
         // TODO: see if a middleware can be created to log the elapsed time of each method called like below.
+        // TODO: before continue, check all the TODOs and complete them.
+        // TODO: check null problems in C# and .NET Core.
         var beforeGetTransactionsTimestamp = Stopwatch.GetTimestamp();
         var transactions = await transactionsGetter.Get();
         var afterGetTransactionsTimestamp = Stopwatch.GetTimestamp();

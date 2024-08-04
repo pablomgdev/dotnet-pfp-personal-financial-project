@@ -2,40 +2,48 @@ using Domain.User.Models;
 
 namespace Domain.Transactions.Models;
 
-public class Transaction(
-    TransactionId id,
-    int? InternalId,
-    TransactionAmount transactionAmount,
-    TransactionDescription transactionDescription,
-    bool isSplit,
-    int? transactionNotSplitInternalId,
-    DateTime? CreatedDate,
-    DateTime? UpdatedDate,
-    bool IsDeleted,
-    DateTime? DeletedDate,
-    UserId userId)
+public class Transaction
 {
-    public TransactionId Id { get; set; } = id;
+    public Transaction(
+        TransactionId id,
+        TransactionAmount amount,
+        TransactionDescription description,
+        bool isSplit,
+        IEnumerable<Transaction>? splitTransactions,
+        DateTime? createdDate,
+        DateTime? updatedDate,
+        bool isDeleted,
+        DateTime? deletedDate,
+        UserId userId)
+    {
+        Id = id;
+        Amount = amount;
+        Description = description;
+        IsSplit = isSplit;
+        SplitTransactions = splitTransactions;
+        UserId = userId;
+        CreatedDate = createdDate;
+        UpdatedDate = updatedDate;
+        IsDeleted = isDeleted;
+        DeletedDate = deletedDate;
+        UserId = userId;
+    }
 
-    public int? InternalId { get; set; }
+    public TransactionId Id { get; set; }
+    public TransactionAmount Amount { get; set; }
+    public TransactionDescription Description { get; set; }
+    public bool IsSplit { get; set; }
 
-    public TransactionAmount TransactionAmount { get; set; } = transactionAmount;
-
-    public TransactionDescription TransactionDescription { get; set; } = transactionDescription;
-
-    public bool IsSplit { get; set; } = isSplit;
-
-    public int? TransactionNotSplitInternalId { get; set; } = transactionNotSplitInternalId;
+    /// <summary>
+    ///     If the transaction has been split, this property will have all the remaining transactions generated.
+    /// </summary>
+    public IEnumerable<Transaction>? SplitTransactions { get; set; }
 
     public DateTime? CreatedDate { get; set; }
-
     public DateTime? UpdatedDate { get; set; }
-
     public bool IsDeleted { get; set; }
-
     public DateTime? DeletedDate { get; set; }
+    public UserId UserId { get; set; }
 
-    public UserId UserId { get; set; } = userId;
-
-    // TODO: see recurrences and categories properties.
+// TODO: see recurrences and categories properties.
 }

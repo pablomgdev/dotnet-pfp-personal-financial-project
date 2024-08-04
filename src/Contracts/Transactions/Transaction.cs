@@ -2,9 +2,7 @@ namespace Contracts.Transactions;
 
 public class Transaction
 {
-    public Guid Id { get; set; }
-
-    public int? InternalId { get; set; }
+    public Guid? Id { get; set; }
 
     public decimal? Amount { get; set; }
 
@@ -12,17 +10,17 @@ public class Transaction
 
     public bool? IsSplit { get; set; }
 
-    public int? TransactionNotSplitInternalId { get; set; }
-
     public DateTime? CreatedDate { get; set; }
 
     public DateTime? UpdatedDate { get; set; }
 
-    public bool IsDeleted { get; set; }
+    public bool? IsDeleted { get; set; }
 
     public DateTime? DeletedDate { get; set; }
 
     public Guid? UserId { get; set; }
+
+    public IEnumerable<Transaction>? SplitTransactions { get; set; }
 
     // TODO: see recurrences and categories properties.
 }
