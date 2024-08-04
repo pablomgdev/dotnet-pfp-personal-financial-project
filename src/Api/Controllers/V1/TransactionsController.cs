@@ -2,6 +2,7 @@ using System.Diagnostics;
 using Api.Controllers.Base;
 using Application.Transactions.Get;
 using Asp.Versioning;
+using AutoMapper;
 using Contracts.Transactions;
 using Microsoft.AspNetCore.Mvc;
 
@@ -11,6 +12,7 @@ namespace Api.Controllers.V1;
 [Produces("application/json")]
 public class TransactionsController(
     TransactionsGetter transactionsGetter,
+    IMapper mapper,
     // TODO: add a custom logger
     ILogger<TransactionsController>? logger = null
 ) : ApiControllerBase
@@ -28,24 +30,15 @@ public class TransactionsController(
     [ProducesResponseType(StatusCodes.Status500InternalServerError)]
     public async Task<ActionResult<GetTransactionsResponse>> Get([FromQuery] GetTransactionsRequest request)
     {
-        // TODO: fix error with efficiency.
-        // TODO: add automapper to use it here.
-        // TODO: use DbContext instead of add singleton pfp context class in Program.cs.
+        // TODO: see why null values are returned in the json response: see ConfigureHttpJsonOptions in Program.cs.
+        // TODO: fix error with efficiency (see dynamic program analysis > View ASP issues).
+        // TODO: see if a middleware can be created to log the elapsed time of each method called like below.
         var beforeGetTransactionsTimestamp = Stopwatch.GetTimestamp();
         var transactions = await transactionsGetter.Get();
         var afterGetTransactionsTimestamp = Stopwatch.GetTimestamp();
         logger?.LogInformation(
             $"transactionsGetter.Get() elapsed time: {Stopwatch.GetElapsedTime(beforeGetTransactionsTimestamp, afterGetTransactionsTimestamp)}");
-        var responseData = transactions
-            .Select(domainTransaction => new Transaction
-            {
-                Id = domainTransaction.Id.Value,
-                Amount = domainTransaction.TransactionAmount.Value,
-                Description = domainTransaction.TransactionDescription.Value,
-                IsSplit = domainTransaction.IsSplit,
-                TransactionNotSplitInternalId = domainTransaction.TransactionNotSplitInternalId,
-                UserId = domainTransaction.UserId.Value
-            }).ToList();
+        var responseData = transactions.Select(mapper.Map<Transaction>).ToList();
         var afterGetResponseDataTransactionsTimestamp = Stopwatch.GetTimestamp();
         logger?.LogInformation(
             $"Get responseData (LINQ Select) elapsed time: {Stopwatch.GetElapsedTime(afterGetTransactionsTimestamp, afterGetResponseDataTransactionsTimestamp)}");

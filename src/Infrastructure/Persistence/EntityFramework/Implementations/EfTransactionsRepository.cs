@@ -10,6 +10,7 @@ public class EfTransactionsRepository(PfpTransactionsApiDatabaseContext context)
 {
     public async Task<IEnumerable<Transaction>> Get()
     {
+        // TODO: add automapper to use it here.
         var dbResult = await context.Transactions.AsNoTracking().ToListAsync();
         return dbResult.Select(result => new Transaction(
             new TransactionId(result.Id),
