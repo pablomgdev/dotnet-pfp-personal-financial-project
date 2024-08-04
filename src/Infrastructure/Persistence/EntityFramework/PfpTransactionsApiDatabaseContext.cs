@@ -29,8 +29,9 @@ public partial class PfpTransactionsApiDatabaseContext : DbContext
     protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
     {
         base.OnConfiguring(optionsBuilder);
-        optionsBuilder.UseNpgsql(
-            "Host=localhost;Port=5432;Database=pfp-transactions-api-database;Username=postgres;Password=postgres;");
+        if (!optionsBuilder.IsConfigured)
+            optionsBuilder.UseNpgsql(
+                "Host=localhost;Port=5432;Database=pfp-transactions-api-database;Username=postgres;Password=postgres;");
     }
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
