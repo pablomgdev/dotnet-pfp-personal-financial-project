@@ -20,5 +20,5 @@ public class Category
 
     public Limit? Limit { get; set; }
 
-    public Guid FundId { get; set; }
+    public Guid? FundId { get; set; }
 }

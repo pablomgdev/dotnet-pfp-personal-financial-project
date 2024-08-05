@@ -12,7 +12,7 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 namespace Infrastructure.Migrations
 {
     [DbContext(typeof(PfpTransactionsApiDatabaseContext))]
-    [Migration("20240805201432_initial")]
+    [Migration("20240805202521_initial")]
     partial class initial
     {
         /// <inheritdoc />
@@ -39,7 +39,7 @@ namespace Infrastructure.Migrations
                         .HasColumnType("timestamp without time zone")
                         .HasColumnName("deleted_date");
 
-                    b.Property<Guid>("FundId")
+                    b.Property<Guid?>("FundId")
                         .HasColumnType("uuid")
                         .HasColumnName("fund_id");
 
@@ -286,9 +286,7 @@ namespace Infrastructure.Migrations
                 {
                     b.HasOne("Infrastructure.Persistence.EntityFramework.Models.Fund", null)
                         .WithMany("Categories")
-                        .HasForeignKey("FundId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                        .HasForeignKey("FundId");
 
                     b.HasOne("Infrastructure.Persistence.EntityFramework.Models.Limit", "Limit")
                         .WithMany()

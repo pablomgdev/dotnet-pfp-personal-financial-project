@@ -43,7 +43,9 @@ public class Transaction
     public DateTime? UpdatedDate { get; set; }
     public bool IsDeleted { get; set; }
     public DateTime? DeletedDate { get; set; }
-    public UserId UserId { get; set; }
 
-// TODO: see recurrences and categories properties.
+    public UserId UserId { get; set; }
+    // TODO: continue here...
+    // public Recurrence Recurrence { get; set; }
+    // public Category Category { get; set; }
 }

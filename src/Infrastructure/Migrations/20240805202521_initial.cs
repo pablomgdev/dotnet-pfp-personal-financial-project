@@ -78,7 +78,7 @@ namespace Infrastructure.Migrations
                     deleted_date = table.Column<DateTime>(type: "timestamp without time zone", nullable: true),
                     user_id = table.Column<Guid>(type: "uuid", nullable: true),
                     limit_id = table.Column<Guid>(type: "uuid", nullable: true),
-                    fund_id = table.Column<Guid>(type: "uuid", nullable: false)
+                    fund_id = table.Column<Guid>(type: "uuid", nullable: true)
                 },
                 constraints: table =>
                 {
@@ -87,8 +87,7 @@ namespace Infrastructure.Migrations
                         name: "FK_categories_funds_fund_id",
                         column: x => x.fund_id,
                         principalTable: "funds",
-                        principalColumn: "id",
-                        onDelete: ReferentialAction.Cascade);
+                        principalColumn: "id");
                     table.ForeignKey(
                         name: "fk__categories__limit_id__limits__limit_id",
                         column: x => x.limit_id,
