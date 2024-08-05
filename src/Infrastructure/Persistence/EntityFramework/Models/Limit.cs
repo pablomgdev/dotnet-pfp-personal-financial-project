@@ -6,8 +6,6 @@ public class Limit
 
     public int? InternalId { get; set; }
 
-    public int? CategoryId { get; set; }
-
     public decimal? Amount { get; set; }
 
     public DateTime? CreatedDate { get; set; }
@@ -19,6 +17,4 @@ public class Limit
     public DateTime? DeletedDate { get; set; }
 
     public Guid? UserId { get; set; }
-
-    public virtual Category? Category { get; set; }
 }

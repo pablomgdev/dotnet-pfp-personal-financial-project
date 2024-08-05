@@ -17,7 +17,6 @@ public class LimitTypeConfiguration : IEntityTypeConfiguration<Limit>
             .ValueGeneratedNever()
             .HasColumnName("id");
         builder.Property(e => e.Amount).HasColumnName("amount");
-        builder.Property(e => e.CategoryId).HasColumnName("category_id");
         builder.Property(e => e.CreatedDate)
             .HasColumnType("timestamp without time zone")
             .HasColumnName("created_date");
@@ -32,9 +31,5 @@ public class LimitTypeConfiguration : IEntityTypeConfiguration<Limit>
             .HasColumnType("timestamp without time zone")
             .HasColumnName("updated_date");
         builder.Property(e => e.UserId).HasColumnName("user_id");
-
-        builder.HasOne(d => d.Category).WithMany(p => p.Limits)
-            .HasForeignKey(d => d.CategoryId)
-            .HasConstraintName("fk__limits__category_id__categories");
     }
 }

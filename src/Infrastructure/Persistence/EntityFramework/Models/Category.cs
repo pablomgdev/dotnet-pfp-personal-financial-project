@@ -16,9 +16,9 @@ public class Category
 
     public Guid? UserId { get; set; }
 
-    public virtual ICollection<Limit> Limits { get; set; } = new List<Limit>();
+    public Guid? LimitId { get; set; }
 
-    public virtual ICollection<Fund> FundInternals { get; set; } = new List<Fund>();
+    public Limit? Limit { get; set; }
 
-    public virtual ICollection<Transaction> TransactionInternals { get; set; } = new List<Transaction>();
+    public Guid FundId { get; set; }
 }

@@ -26,15 +26,9 @@ public class RecurrenceTypeConfiguration : IEntityTypeConfiguration<Recurrence>
         builder.Property(e => e.Name)
             .HasMaxLength(50)
             .HasColumnName("name");
-        builder.Property(e => e.TransactionInternalId).HasColumnName("transaction_internal_id");
         builder.Property(e => e.UpdatedDate)
             .HasColumnType("timestamp without time zone")
             .HasColumnName("updated_date");
         builder.Property(e => e.UserId).HasColumnName("user_id");
-
-        builder.HasOne(d => d.TransactionInternal).WithMany(p => p.Recurrences)
-            .HasPrincipalKey(p => p.InternalId)
-            .HasForeignKey(d => d.TransactionInternalId)
-            .HasConstraintName("fk__recurrences__transaction_internal_id__transaction");
     }
 }

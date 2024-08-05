@@ -32,5 +32,23 @@ public class CategoryTypeConfiguration : IEntityTypeConfiguration<Category>
             .HasColumnType("timestamp without time zone")
             .HasColumnName("updated_date");
         builder.Property(e => e.UserId).HasColumnName("user_id");
+        builder
+            .Property(e => e.LimitId)
+            .HasColumnName("limit_id");
+        builder
+            .Property(e => e.FundId)
+            .HasColumnName("fund_id");
+
+        builder
+            .HasOne(d => d.Limit)
+            .WithMany()
+            .HasForeignKey(d => d.LimitId)
+            .HasConstraintName("fk__categories__limit_id__limits__limit_id");
+
+        // builder
+        //     .HasOne(c => c.FundId)
+        //     .WithMany()
+        //     .HasForeignKey(d => d.FundId)
+        //     .HasConstraintName("fk__categories__fund_id__funds__fund_id");
     }
 }

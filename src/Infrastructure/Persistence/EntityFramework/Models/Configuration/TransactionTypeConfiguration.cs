@@ -42,25 +42,17 @@ public class TransactionTypeConfiguration : IEntityTypeConfiguration<Transaction
             .HasColumnType("timestamp without time zone")
             .HasColumnName("updated_date");
         builder.Property(e => e.UserId).HasColumnName("user_id");
+        builder.Property(e => e.RecurrenceId).HasColumnName("recurrence_id");
+        builder.Property(e => e.CategoryId).HasColumnName("category_id");
 
-        builder.HasMany(d => d.Categories).WithMany(p => p.TransactionInternals)
-            .UsingEntity<Dictionary<string, object>>(
-                "TransactionsCategory",
-                r => r.HasOne<Category>().WithMany()
-                    .HasForeignKey("CategoryId")
-                    .OnDelete(DeleteBehavior.ClientSetNull)
-                    .HasConstraintName("fk__transactions_categories__category_id__categories"),
-                l => l.HasOne<Transaction>().WithMany()
-                    .HasPrincipalKey("InternalId")
-                    .HasForeignKey("TransactionInternalId")
-                    .OnDelete(DeleteBehavior.ClientSetNull)
-                    .HasConstraintName("fk__transactions_categories__transaction_internal_id__transacti"),
-                j =>
-                {
-                    j.HasKey("TransactionInternalId", "CategoryId").HasName("transactions_categories_pkey");
-                    j.ToTable("transactions_categories");
-                    j.IndexerProperty<int>("TransactionInternalId").HasColumnName("transaction_internal_id");
-                    j.IndexerProperty<int>("CategoryId").HasColumnName("category_id");
-                });
+        builder
+            .HasOne(t => t.Recurrence)
+            .WithMany()
+            .HasForeignKey(t => t.RecurrenceId);
+
+        builder
+            .HasOne(t => t.Category)
+            .WithMany()
+            .HasForeignKey(t => t.CategoryId);
     }
 }
