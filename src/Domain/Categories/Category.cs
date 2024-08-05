@@ -1,4 +1,6 @@
-﻿namespace Infrastructure.Persistence.EntityFramework.Models;
+using Domain.Limits;
+
+namespace Domain.Categories;
 
 public class Category
 {
@@ -15,8 +17,6 @@ public class Category
     public DateTime? DeletedDate { get; set; }
 
     public Guid? UserId { get; set; }
-
-    public Guid? LimitId { get; set; }
 
     public Limit? Limit { get; set; }
 

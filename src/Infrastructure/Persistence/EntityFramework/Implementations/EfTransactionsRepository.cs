@@ -17,8 +17,8 @@ public class EfTransactionsRepository(
         var beforeGetTransactionsTimestamp = Stopwatch.GetTimestamp();
         var databaseResults = await context.Transactions.AsNoTracking().ToListAsync();
         var afterGetTransactionsTimestamp = Stopwatch.GetTimestamp();
-        logger?.LogInformation(
-            $"context.Transactions.AsNoTracking().ToListAsync() elapsed time: {Stopwatch.GetElapsedTime(beforeGetTransactionsTimestamp, afterGetTransactionsTimestamp)}");
+        // logger?.LogInformation(
+        //     $"context.Transactions.AsNoTracking().ToListAsync() elapsed time: {Stopwatch.GetElapsedTime(beforeGetTransactionsTimestamp, afterGetTransactionsTimestamp)}");
         return databaseResults.Select(databaseResult => databaseResult.MapToDomainModel());
     }
 }

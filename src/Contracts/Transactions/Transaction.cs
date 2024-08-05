@@ -1,3 +1,6 @@
+using Contracts.Categories;
+using Contracts.Recurrences;
+
 namespace Contracts.Transactions;
 
 public class Transaction
@@ -14,13 +17,9 @@ public class Transaction
 
     public DateTime? UpdatedDate { get; set; }
 
-    public bool? IsDeleted { get; set; }
-
-    public DateTime? DeletedDate { get; set; }
-
-    public Guid? UserId { get; set; }
-
     public IEnumerable<Transaction>? SplitTransactions { get; set; }
 
-    // TODO: see recurrences and categories properties.
+    public Recurrence? Recurrence { get; set; }
+
+    public Category? Category { get; set; }
 }

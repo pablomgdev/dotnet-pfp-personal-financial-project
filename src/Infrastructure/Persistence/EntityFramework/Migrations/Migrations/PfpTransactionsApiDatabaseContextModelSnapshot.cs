@@ -3,7 +3,6 @@ using System;
 using Infrastructure.Persistence.EntityFramework;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
-using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 
@@ -12,11 +11,9 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 namespace Infrastructure.Migrations
 {
     [DbContext(typeof(PfpTransactionsApiDatabaseContext))]
-    [Migration("20240805202521_initial")]
-    partial class initial
+    partial class PfpTransactionsApiDatabaseContextModelSnapshot : ModelSnapshot
     {
-        /// <inheritdoc />
-        protected override void BuildTargetModel(ModelBuilder modelBuilder)
+        protected override void BuildModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -39,7 +36,7 @@ namespace Infrastructure.Migrations
                         .HasColumnType("timestamp without time zone")
                         .HasColumnName("deleted_date");
 
-                    b.Property<Guid?>("FundId")
+                    b.Property<Guid>("FundId")
                         .HasColumnType("uuid")
                         .HasColumnName("fund_id");
 
@@ -286,7 +283,9 @@ namespace Infrastructure.Migrations
                 {
                     b.HasOne("Infrastructure.Persistence.EntityFramework.Models.Fund", null)
                         .WithMany("Categories")
-                        .HasForeignKey("FundId");
+                        .HasForeignKey("FundId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
 
                     b.HasOne("Infrastructure.Persistence.EntityFramework.Models.Limit", "Limit")
                         .WithMany()

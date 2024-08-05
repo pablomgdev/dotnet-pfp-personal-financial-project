@@ -1,3 +1,5 @@
+using Domain.Categories;
+using Domain.Recurrences;
 using Domain.User.Models;
 
 namespace Domain.Transactions.Models;
@@ -14,7 +16,9 @@ public class Transaction
         DateTime? updatedDate,
         bool isDeleted,
         DateTime? deletedDate,
-        UserId userId)
+        UserId userId,
+        Recurrence recurrence,
+        Category category)
     {
         Id = id;
         Amount = amount;
@@ -27,6 +31,8 @@ public class Transaction
         IsDeleted = isDeleted;
         DeletedDate = deletedDate;
         UserId = userId;
+        Recurrence = recurrence;
+        Category = category;
     }
 
     public TransactionId Id { get; set; }
@@ -45,7 +51,8 @@ public class Transaction
     public DateTime? DeletedDate { get; set; }
 
     public UserId UserId { get; set; }
-    // TODO: continue here...
-    // public Recurrence Recurrence { get; set; }
-    // public Category Category { get; set; }
+
+    public Recurrence Recurrence { get; set; }
+
+    public Category Category { get; set; }
 }

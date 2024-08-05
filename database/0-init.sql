@@ -96,3 +96,17 @@
 --     "user_id"      UUID,
 --     CONSTRAINT fk__limits__category_id__categories FOREIGN KEY ("category_id") REFERENCES "categories" ("id")
 -- );
+
+
+-- Example data:
+INSERT INTO funds(
+    id, internal_id, name, description, total_amount, created_date, updated_date, is_deleted, deleted_date, user_id)
+VALUES (gen_random_uuid(), 1, 'Gastos esenciales', 'Gastos fijos y otros esenciales', 89.45, now(), now(), false, null, null);
+
+INSERT INTO categories(
+    id, name, created_date, updated_date, is_deleted, deleted_date, user_id, limit_id, fund_id)
+VALUES (1, 'Gastos fijos', now(), now(), false, null, null, null, (SELECT "id" FROM funds WHERE internal_id = 1));
+
+INSERT INTO transactions(
+    id, internal_id, amount, description, recurrence_id, is_split, transaction_not_split_internal_id, created_date, updated_date, is_deleted, deleted_date, user_id, category_id)
+VALUES (gen_random_uuid(), 1, 89.45, 'Compra de la semana', null, false, null, now(), now(), false, null, null, 1);

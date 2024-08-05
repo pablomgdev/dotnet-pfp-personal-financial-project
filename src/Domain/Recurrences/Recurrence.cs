@@ -1,6 +1,6 @@
-﻿namespace Infrastructure.Persistence.EntityFramework.Models;
+namespace Domain.Recurrences;
 
-public class Category
+public class Recurrence
 {
     public int Id { get; set; }
 
@@ -15,10 +15,4 @@ public class Category
     public DateTime? DeletedDate { get; set; }
 
     public Guid? UserId { get; set; }
-
-    public Guid? LimitId { get; set; }
-
-    public Limit? Limit { get; set; }
-
-    public Guid FundId { get; set; }
 }

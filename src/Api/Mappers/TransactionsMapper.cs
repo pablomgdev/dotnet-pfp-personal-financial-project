@@ -15,11 +15,10 @@ public static class TransactionsMapper
             IsSplit = domainTransaction.IsSplit,
             CreatedDate = domainTransaction.CreatedDate,
             UpdatedDate = domainTransaction.UpdatedDate,
-            IsDeleted = domainTransaction.IsDeleted,
-            DeletedDate = domainTransaction.DeletedDate,
-            UserId = domainTransaction.UserId.Value,
             SplitTransactions = domainTransaction.SplitTransactions
-                ?.Select(splitTransaction => splitTransaction.MapToDto())
+                ?.Select(splitTransaction => splitTransaction.MapToDto()),
+            Recurrence = domainTransaction.Recurrence.MapToDto(),
+            Category = domainTransaction.Category.MapToDto()
         };
     }
 }
