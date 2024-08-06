@@ -27,6 +27,7 @@ public class TransactionTypeConfiguration : IEntityTypeConfiguration<Transaction
             .HasMaxLength(255)
             .HasColumnName("description");
         builder.Property(e => e.InternalId)
+            .ValueGeneratedOnAdd()
             .IsRequired()
             .HasColumnName("internal_id");
         builder.Property(e => e.IsDeleted)

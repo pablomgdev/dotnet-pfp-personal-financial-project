@@ -1,5 +1,6 @@
 ﻿using System;
 using Microsoft.EntityFrameworkCore.Migrations;
+using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 
 #nullable disable
 
@@ -36,7 +37,8 @@ namespace Infrastructure.Migrations
                 columns: table => new
                 {
                     id = table.Column<Guid>(type: "uuid", nullable: false),
-                    internal_id = table.Column<int>(type: "integer", nullable: true),
+                    internal_id = table.Column<int>(type: "integer", nullable: true)
+                        .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
                     amount = table.Column<decimal>(type: "numeric", nullable: true),
                     created_date = table.Column<DateTime>(type: "timestamp without time zone", nullable: true),
                     updated_date = table.Column<DateTime>(type: "timestamp without time zone", nullable: true),
@@ -50,27 +52,24 @@ namespace Infrastructure.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "recurrences",
+                name: "recurrence_types",
                 columns: table => new
                 {
-                    id = table.Column<int>(type: "integer", nullable: false),
-                    name = table.Column<string>(type: "character varying(50)", maxLength: 50, nullable: true),
-                    created_date = table.Column<DateTime>(type: "timestamp without time zone", nullable: true),
-                    updated_date = table.Column<DateTime>(type: "timestamp without time zone", nullable: true),
-                    is_deleted = table.Column<bool>(type: "boolean", nullable: true),
-                    deleted_date = table.Column<DateTime>(type: "timestamp without time zone", nullable: true),
-                    user_id = table.Column<Guid>(type: "uuid", nullable: true)
+                    id = table.Column<int>(type: "integer", nullable: false)
+                        .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
+                    name = table.Column<string>(type: "text", nullable: false)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("recurrences_pkey", x => x.id);
+                    table.PrimaryKey("recurrence_types_pkey", x => x.id);
                 });
 
             migrationBuilder.CreateTable(
                 name: "categories",
                 columns: table => new
                 {
-                    id = table.Column<int>(type: "integer", nullable: false),
+                    id = table.Column<int>(type: "integer", nullable: false)
+                        .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
                     name = table.Column<string>(type: "character varying(50)", maxLength: 50, nullable: true),
                     created_date = table.Column<DateTime>(type: "timestamp without time zone", nullable: true),
                     updated_date = table.Column<DateTime>(type: "timestamp without time zone", nullable: true),
@@ -97,11 +96,36 @@ namespace Infrastructure.Migrations
                 });
 
             migrationBuilder.CreateTable(
+                name: "recurrences",
+                columns: table => new
+                {
+                    id = table.Column<int>(type: "integer", nullable: false)
+                        .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
+                    recurrence_type_id = table.Column<int>(type: "integer", nullable: false),
+                    created_date = table.Column<DateTime>(type: "timestamp without time zone", nullable: true),
+                    updated_date = table.Column<DateTime>(type: "timestamp without time zone", nullable: true),
+                    is_deleted = table.Column<bool>(type: "boolean", nullable: true),
+                    deleted_date = table.Column<DateTime>(type: "timestamp without time zone", nullable: true),
+                    user_id = table.Column<Guid>(type: "uuid", nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("recurrences_pkey", x => x.id);
+                    table.ForeignKey(
+                        name: "FK_recurrences_recurrence_types_recurrence_type_id",
+                        column: x => x.recurrence_type_id,
+                        principalTable: "recurrence_types",
+                        principalColumn: "id",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateTable(
                 name: "transactions",
                 columns: table => new
                 {
                     id = table.Column<Guid>(type: "uuid", nullable: false),
-                    internal_id = table.Column<int>(type: "integer", nullable: false),
+                    internal_id = table.Column<int>(type: "integer", nullable: false)
+                        .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
                     amount = table.Column<decimal>(type: "numeric", nullable: false),
                     description = table.Column<string>(type: "character varying(255)", maxLength: 255, nullable: true),
                     recurrence_id = table.Column<int>(type: "integer", nullable: true),
@@ -165,6 +189,11 @@ namespace Infrastructure.Migrations
                 unique: true);
 
             migrationBuilder.CreateIndex(
+                name: "IX_recurrences_recurrence_type_id",
+                table: "recurrences",
+                column: "recurrence_type_id");
+
+            migrationBuilder.CreateIndex(
                 name: "IX_transactions_category_id",
                 table: "transactions",
                 column: "category_id");
@@ -198,6 +227,9 @@ namespace Infrastructure.Migrations
 
             migrationBuilder.DropTable(
                 name: "limits");
+
+            migrationBuilder.DropTable(
+                name: "recurrence_types");
         }
     }
 }

@@ -99,6 +99,12 @@
 
 
 -- Example data:
+INSERT INTO public.recurrence_types(id, name)
+VALUES (1, 'Daily'), (2, 'Weekly'), (3, 'Monthly');
+
+INSERT INTO public.recurrences(id, recurrence_type_id, created_date, updated_date, is_deleted, deleted_date, user_id)
+VALUES (1, 1, now(), now(), false, null, null);
+
 INSERT INTO funds(
     id, internal_id, name, description, total_amount, created_date, updated_date, is_deleted, deleted_date, user_id)
 VALUES (gen_random_uuid(), 1, 'Gastos esenciales', 'Gastos fijos y otros esenciales', 89.45, now(), now(), false, null, null);

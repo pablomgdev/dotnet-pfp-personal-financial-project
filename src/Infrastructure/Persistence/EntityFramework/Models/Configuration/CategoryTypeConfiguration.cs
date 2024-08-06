@@ -14,7 +14,7 @@ public class CategoryTypeConfiguration : IEntityTypeConfiguration<Category>
         builder.HasIndex(e => e.Name, "categories_name_key").IsUnique();
 
         builder.Property(e => e.Id)
-            .ValueGeneratedNever()
+            .ValueGeneratedOnAdd()
             .HasColumnName("id");
         builder.Property(e => e.CreatedDate)
             .HasColumnType("timestamp without time zone")

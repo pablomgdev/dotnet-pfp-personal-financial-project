@@ -4,9 +4,9 @@ namespace Api.Mappers;
 
 public static class TransactionsMapper
 {
-    public static Transaction MapToDto(this Domain.Transactions.Models.Transaction domainTransaction)
+    public static Transaction? MapToDto(this Domain.Transactions.Models.Transaction? domainTransaction)
     {
-        // TODO: see recurrences and categories values...
+        if (domainTransaction is null) return null;
         return new Transaction
         {
             Id = domainTransaction.Id.Value,

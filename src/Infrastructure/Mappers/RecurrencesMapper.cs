@@ -15,7 +15,7 @@ public static class RecurrencesMapper
             IsDeleted = persistenceRecurrenceModel.IsDeleted,
             DeletedDate = persistenceRecurrenceModel.DeletedDate,
             UserId = persistenceRecurrenceModel.UserId,
-            Name = persistenceRecurrenceModel.Name
+            Type = persistenceRecurrenceModel.Type.MapToDomainModel()
         };
     }
 }

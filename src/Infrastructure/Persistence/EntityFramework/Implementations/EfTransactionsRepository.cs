@@ -18,6 +18,7 @@ public class EfTransactionsRepository(
         var databaseResults = await context.Transactions
             .Include(x => x.Category)
             .Include(x => x.Recurrence)
+            .Include(x => x.Recurrence.Type)
             .AsNoTracking()
             .ToListAsync();
         var afterGetTransactionsTimestamp = Stopwatch.GetTimestamp();

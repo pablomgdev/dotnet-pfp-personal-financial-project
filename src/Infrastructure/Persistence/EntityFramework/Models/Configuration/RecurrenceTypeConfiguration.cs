@@ -12,7 +12,7 @@ public class RecurrenceTypeConfiguration : IEntityTypeConfiguration<Recurrence>
         builder.ToTable("recurrences");
 
         builder.Property(e => e.Id)
-            .ValueGeneratedNever()
+            .ValueGeneratedOnAdd()
             .HasColumnName("id");
         builder.Property(e => e.CreatedDate)
             .HasColumnType("timestamp without time zone")
@@ -23,12 +23,16 @@ public class RecurrenceTypeConfiguration : IEntityTypeConfiguration<Recurrence>
         builder.Property(e => e.IsDeleted)
             .HasColumnType("boolean")
             .HasColumnName("is_deleted");
-        builder.Property(e => e.Name)
-            .HasMaxLength(50)
-            .HasColumnName("name");
+        builder.Property(e => e.TypeId)
+            .HasColumnName("recurrence_type_id");
         builder.Property(e => e.UpdatedDate)
             .HasColumnType("timestamp without time zone")
             .HasColumnName("updated_date");
         builder.Property(e => e.UserId).HasColumnName("user_id");
+
+        builder
+            .HasOne<RecurrenceType>(r => r.Type)
+            .WithMany()
+            .HasForeignKey(r => r.TypeId);
     }
 }

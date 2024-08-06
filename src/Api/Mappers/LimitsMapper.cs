@@ -4,8 +4,9 @@ namespace Api.Mappers;
 
 public static class LimitsMapper
 {
-    public static Limit MapToDto(this Domain.Limits.Limit domainLimit)
+    public static Limit? MapToDto(this Domain.Limits.Limit? domainLimit)
     {
+        if (domainLimit is null) return null;
         return new Limit
         {
             Id = domainLimit.Id,

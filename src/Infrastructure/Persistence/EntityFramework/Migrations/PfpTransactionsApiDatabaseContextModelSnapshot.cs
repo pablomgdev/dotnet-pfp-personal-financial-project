@@ -25,8 +25,11 @@ namespace Infrastructure.Migrations
             modelBuilder.Entity("Infrastructure.Persistence.EntityFramework.Models.Category", b =>
                 {
                     b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
                         .HasColumnType("integer")
                         .HasColumnName("id");
+
+                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Id"));
 
                     b.Property<DateTime?>("CreatedDate")
                         .HasColumnType("timestamp without time zone")
@@ -150,8 +153,11 @@ namespace Infrastructure.Migrations
                         .HasColumnName("deleted_date");
 
                     b.Property<int?>("InternalId")
+                        .ValueGeneratedOnAdd()
                         .HasColumnType("integer")
                         .HasColumnName("internal_id");
+
+                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int?>("InternalId"));
 
                     b.Property<bool?>("IsDeleted")
                         .HasColumnType("boolean")
@@ -177,8 +183,11 @@ namespace Infrastructure.Migrations
             modelBuilder.Entity("Infrastructure.Persistence.EntityFramework.Models.Recurrence", b =>
                 {
                     b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
                         .HasColumnType("integer")
                         .HasColumnName("id");
+
+                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Id"));
 
                     b.Property<DateTime?>("CreatedDate")
                         .HasColumnType("timestamp without time zone")
@@ -192,10 +201,9 @@ namespace Infrastructure.Migrations
                         .HasColumnType("boolean")
                         .HasColumnName("is_deleted");
 
-                    b.Property<string>("Name")
-                        .HasMaxLength(50)
-                        .HasColumnType("character varying(50)")
-                        .HasColumnName("name");
+                    b.Property<int>("TypeId")
+                        .HasColumnType("integer")
+                        .HasColumnName("recurrence_type_id");
 
                     b.Property<DateTime?>("UpdatedDate")
                         .HasColumnType("timestamp without time zone")
@@ -208,7 +216,29 @@ namespace Infrastructure.Migrations
                     b.HasKey("Id")
                         .HasName("recurrences_pkey");
 
+                    b.HasIndex("TypeId");
+
                     b.ToTable("recurrences", (string)null);
+                });
+
+            modelBuilder.Entity("Infrastructure.Persistence.EntityFramework.Models.RecurrenceType", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("integer")
+                        .HasColumnName("id");
+
+                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Id"));
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasColumnType("text")
+                        .HasColumnName("name");
+
+                    b.HasKey("Id")
+                        .HasName("recurrence_types_pkey");
+
+                    b.ToTable("recurrence_types", (string)null);
                 });
 
             modelBuilder.Entity("Infrastructure.Persistence.EntityFramework.Models.Transaction", b =>
@@ -239,8 +269,11 @@ namespace Infrastructure.Migrations
                         .HasColumnName("description");
 
                     b.Property<int>("InternalId")
+                        .ValueGeneratedOnAdd()
                         .HasColumnType("integer")
                         .HasColumnName("internal_id");
+
+                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("InternalId"));
 
                     b.Property<bool>("IsDeleted")
                         .HasColumnType("boolean")
@@ -293,6 +326,17 @@ namespace Infrastructure.Migrations
                         .HasConstraintName("fk__categories__limit_id__limits__limit_id");
 
                     b.Navigation("Limit");
+                });
+
+            modelBuilder.Entity("Infrastructure.Persistence.EntityFramework.Models.Recurrence", b =>
+                {
+                    b.HasOne("Infrastructure.Persistence.EntityFramework.Models.RecurrenceType", "Type")
+                        .WithMany()
+                        .HasForeignKey("TypeId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Type");
                 });
 
             modelBuilder.Entity("Infrastructure.Persistence.EntityFramework.Models.Transaction", b =>

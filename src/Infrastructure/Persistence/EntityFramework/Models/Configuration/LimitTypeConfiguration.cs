@@ -23,7 +23,10 @@ public class LimitTypeConfiguration : IEntityTypeConfiguration<Limit>
         builder.Property(e => e.DeletedDate)
             .HasColumnType("timestamp without time zone")
             .HasColumnName("deleted_date");
-        builder.Property(e => e.InternalId).HasColumnName("internal_id");
+        builder
+            .Property(e => e.InternalId)
+            .ValueGeneratedOnAdd()
+            .HasColumnName("internal_id");
         builder.Property(e => e.IsDeleted)
             .HasColumnType("boolean")
             .HasColumnName("is_deleted");

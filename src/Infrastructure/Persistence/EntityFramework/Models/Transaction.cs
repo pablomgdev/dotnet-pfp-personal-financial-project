@@ -32,9 +32,4 @@ public class Transaction
     public int CategoryId { get; set; }
 
     public Category Category { get; set; }
-
-    // TODO: see if this relation is like this. It sounds me that one transactions has only one recurrence.
-    // public virtual ICollection<Recurrence> Recurrences { get; set; } = new List<Recurrence>();
-    //
-    // public virtual ICollection<Category> Categories { get; set; } = new List<Category>();
 }
