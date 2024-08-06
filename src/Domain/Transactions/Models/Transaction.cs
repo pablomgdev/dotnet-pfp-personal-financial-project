@@ -17,8 +17,8 @@ public class Transaction
         bool isDeleted,
         DateTime? deletedDate,
         UserId userId,
-        Recurrence recurrence,
-        Category category)
+        Recurrence? recurrence,
+        Category? category)
     {
         Id = id;
         Amount = amount;
@@ -52,7 +52,7 @@ public class Transaction
 
     public UserId UserId { get; set; }
 
-    public Recurrence Recurrence { get; set; }
+    public Recurrence? Recurrence { get; set; }
 
-    public Category Category { get; set; }
+    public Category? Category { get; set; }
 }

@@ -17,7 +17,7 @@ public class Transaction
 
     public DateTime? UpdatedDate { get; set; }
 
-    public IEnumerable<Transaction>? SplitTransactions { get; set; }
+    public IEnumerable<Transaction?>? SplitTransactions { get; set; }
 
     public Recurrence? Recurrence { get; set; }
 

@@ -15,7 +15,11 @@ public class EfTransactionsRepository(
     public async Task<IEnumerable<Transaction>> Get()
     {
         var beforeGetTransactionsTimestamp = Stopwatch.GetTimestamp();
-        var databaseResults = await context.Transactions.AsNoTracking().ToListAsync();
+        var databaseResults = await context.Transactions
+            .Include(x => x.Category)
+            .Include(x => x.Recurrence)
+            .AsNoTracking()
+            .ToListAsync();
         var afterGetTransactionsTimestamp = Stopwatch.GetTimestamp();
         // logger?.LogInformation(
         //     $"context.Transactions.AsNoTracking().ToListAsync() elapsed time: {Stopwatch.GetElapsedTime(beforeGetTransactionsTimestamp, afterGetTransactionsTimestamp)}");

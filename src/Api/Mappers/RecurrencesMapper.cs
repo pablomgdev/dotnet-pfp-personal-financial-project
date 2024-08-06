@@ -4,7 +4,7 @@ namespace Api.Mappers;
 
 public static class RecurrencesMapper
 {
-    public static Recurrence MapToDto(this Domain.Recurrences.Recurrence domainRecurrence)
+    public static Recurrence MapToDto(this Domain.Recurrences.Recurrence? domainRecurrence)
     {
         return new Recurrence
         {

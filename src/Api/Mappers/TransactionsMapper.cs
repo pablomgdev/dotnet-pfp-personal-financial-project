@@ -16,9 +16,9 @@ public static class TransactionsMapper
             CreatedDate = domainTransaction.CreatedDate,
             UpdatedDate = domainTransaction.UpdatedDate,
             SplitTransactions = domainTransaction.SplitTransactions
-                ?.Select(splitTransaction => splitTransaction.MapToDto()),
-            Recurrence = domainTransaction.Recurrence.MapToDto(),
-            Category = domainTransaction.Category.MapToDto()
+                ?.Select(splitTransaction => splitTransaction?.MapToDto()),
+            Recurrence = domainTransaction.Recurrence?.MapToDto(),
+            Category = domainTransaction.Category?.MapToDto()
         };
     }
 }

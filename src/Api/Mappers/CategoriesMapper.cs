@@ -4,7 +4,7 @@ namespace Api.Mappers;
 
 public static class CategoriesMapper
 {
-    public static Category MapToDto(this Domain.Categories.Category domainCategory)
+    public static Category MapToDto(this Domain.Categories.Category? domainCategory)
     {
         return new Category
         {

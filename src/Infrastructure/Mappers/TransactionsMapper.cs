@@ -20,8 +20,8 @@ public static class TransactionsMapper
             persistenceTransactionModel.IsDeleted,
             persistenceTransactionModel.DeletedDate,
             new UserId(persistenceTransactionModel.UserId),
-            persistenceTransactionModel.Recurrence.MapToDomainModel(),
-            persistenceTransactionModel.Category.MapToDomainModel()
+            persistenceTransactionModel.Recurrence?.MapToDomainModel(),
+            persistenceTransactionModel.Category?.MapToDomainModel()
         );
     }
 }

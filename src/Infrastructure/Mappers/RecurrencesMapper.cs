@@ -4,7 +4,7 @@ namespace Infrastructure.Mappers;
 
 public static class RecurrencesMapper
 {
-    public static Recurrence MapToDomainModel(
+    public static Recurrence? MapToDomainModel(
         this Persistence.EntityFramework.Models.Recurrence persistenceRecurrenceModel)
     {
         return new Recurrence

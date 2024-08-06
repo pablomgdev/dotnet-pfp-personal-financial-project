@@ -4,7 +4,7 @@ namespace Infrastructure.Mappers;
 
 public static class CategoriesMapper
 {
-    public static Category MapToDomainModel(
+    public static Category? MapToDomainModel(
         this Persistence.EntityFramework.Models.Category persistenceCategoryModel)
     {
         return new Category
