@@ -13,8 +13,7 @@ public static class TransactionsMapper
             new TransactionAmount(persistenceTransactionModel.Amount),
             new TransactionDescription(persistenceTransactionModel.Description),
             persistenceTransactionModel.IsSplit,
-            // TODO see this. Maybe is a missing relation
-            null,
+            persistenceTransactionModel.SplitTransactions?.Select(MapToDomainModel),
             persistenceTransactionModel.CreatedDate,
             persistenceTransactionModel.UpdatedDate,
             persistenceTransactionModel.IsDeleted,

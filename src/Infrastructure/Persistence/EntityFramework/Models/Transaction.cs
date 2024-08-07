@@ -19,6 +19,8 @@ public class Transaction
     // TODO: make this FK to transactions table.
     public int? TransactionNotSplitInternalId { get; set; }
 
+    public virtual ICollection<Transaction> SplitTransactions { get; set; }
+
     public DateTime? CreatedDate { get; set; }
 
     public DateTime? UpdatedDate { get; set; }

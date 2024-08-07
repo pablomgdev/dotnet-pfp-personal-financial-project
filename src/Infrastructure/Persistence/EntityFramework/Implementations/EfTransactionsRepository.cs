@@ -16,9 +16,11 @@ public class EfTransactionsRepository(
     {
         var beforeGetTransactionsTimestamp = Stopwatch.GetTimestamp();
         var databaseResults = await context.Transactions
-            .Include(x => x.Category)
-            .Include(x => x.Recurrence)
-            .Include(x => x.Recurrence.Type)
+            .Where(t => t.TransactionNotSplitInternalId == null)
+            .Include(t => t.Category)
+            .Include(t => t.Recurrence)
+            .Include(t => t.Recurrence.Type)
+            .Include(t => t.SplitTransactions)
             .AsNoTracking()
             .ToListAsync();
         var afterGetTransactionsTimestamp = Stopwatch.GetTimestamp();

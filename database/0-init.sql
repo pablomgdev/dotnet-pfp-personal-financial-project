@@ -107,7 +107,7 @@ VALUES (1, 1, now(), now(), false, null, null);
 
 INSERT INTO funds(
     id, internal_id, name, description, total_amount, created_date, updated_date, is_deleted, deleted_date, user_id)
-VALUES (gen_random_uuid(), 1, 'Gastos esenciales', 'Gastos fijos y otros esenciales', 89.45, now(), now(), false, null, null);
+VALUES (gen_random_uuid(), 1, 'Gastos esenciales', 'Gastos fijos y otros esenciales', 123.9, now(), now(), false, null, null);
 
 INSERT INTO categories(
     id, name, created_date, updated_date, is_deleted, deleted_date, user_id, limit_id, fund_id)
@@ -116,3 +116,15 @@ VALUES (1, 'Gastos fijos', now(), now(), false, null, null, null, (SELECT "id" F
 INSERT INTO transactions(
     id, internal_id, amount, description, recurrence_id, is_split, transaction_not_split_internal_id, created_date, updated_date, is_deleted, deleted_date, user_id, category_id)
 VALUES (gen_random_uuid(), 1, 89.45, 'Compra de la semana', null, false, null, now(), now(), false, null, null, 1);
+
+INSERT INTO transactions(
+    id, internal_id, amount, description, recurrence_id, is_split, transaction_not_split_internal_id, created_date, updated_date, is_deleted, deleted_date, user_id, category_id)
+VALUES (gen_random_uuid(), 2, 34.45, 'Salida al cine', 1, true, null, now(), now(), false, null, null, 1);
+
+INSERT INTO transactions(
+    id, internal_id, amount, description, recurrence_id, is_split, transaction_not_split_internal_id, created_date, updated_date, is_deleted, deleted_date, user_id, category_id)
+VALUES (gen_random_uuid(), 3, 32.45, 'Salida al cine 2', 1, true, 2, now(), now(), false, null, null, 1);
+
+INSERT INTO transactions(
+    id, internal_id, amount, description, recurrence_id, is_split, transaction_not_split_internal_id, created_date, updated_date, is_deleted, deleted_date, user_id, category_id)
+VALUES (gen_random_uuid(), 4, 2.0, 'Salida al cine 3', 1, true, 2, now(), now(), false, null, null, 1);

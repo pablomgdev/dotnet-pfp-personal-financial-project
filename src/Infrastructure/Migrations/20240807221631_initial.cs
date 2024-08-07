@@ -141,6 +141,7 @@ namespace Infrastructure.Migrations
                 constraints: table =>
                 {
                     table.PrimaryKey("transactions_pkey", x => x.id);
+                    table.UniqueConstraint("AK_transactions_internal_id", x => x.internal_id);
                     table.ForeignKey(
                         name: "FK_transactions_categories_category_id",
                         column: x => x.category_id,
@@ -152,6 +153,11 @@ namespace Infrastructure.Migrations
                         column: x => x.recurrence_id,
                         principalTable: "recurrences",
                         principalColumn: "id");
+                    table.ForeignKey(
+                        name: "FK_transactions_transactions_transaction_not_split_internal_id",
+                        column: x => x.transaction_not_split_internal_id,
+                        principalTable: "transactions",
+                        principalColumn: "internal_id");
                 });
 
             migrationBuilder.CreateIndex(
@@ -202,6 +208,11 @@ namespace Infrastructure.Migrations
                 name: "IX_transactions_recurrence_id",
                 table: "transactions",
                 column: "recurrence_id");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_transactions_transaction_not_split_internal_id",
+                table: "transactions",
+                column: "transaction_not_split_internal_id");
 
             migrationBuilder.CreateIndex(
                 name: "transactions_internal_id_key",

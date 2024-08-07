@@ -3,6 +3,7 @@ using System;
 using Infrastructure.Persistence.EntityFramework;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 
@@ -11,9 +12,11 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 namespace Infrastructure.Migrations
 {
     [DbContext(typeof(PfpTransactionsApiDatabaseContext))]
-    partial class PfpTransactionsApiDatabaseContextModelSnapshot : ModelSnapshot
+    [Migration("20240807221631_initial")]
+    partial class initial
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -306,6 +309,8 @@ namespace Infrastructure.Migrations
 
                     b.HasIndex("RecurrenceId");
 
+                    b.HasIndex("TransactionNotSplitInternalId");
+
                     b.HasIndex(new[] { "InternalId" }, "transactions_internal_id_key")
                         .IsUnique();
 
@@ -351,6 +356,11 @@ namespace Infrastructure.Migrations
                         .WithMany()
                         .HasForeignKey("RecurrenceId");
 
+                    b.HasOne("Infrastructure.Persistence.EntityFramework.Models.Transaction", null)
+                        .WithMany("SplitTransactions")
+                        .HasForeignKey("TransactionNotSplitInternalId")
+                        .HasPrincipalKey("InternalId");
+
                     b.Navigation("Category");
 
                     b.Navigation("Recurrence");
@@ -359,6 +369,11 @@ namespace Infrastructure.Migrations
             modelBuilder.Entity("Infrastructure.Persistence.EntityFramework.Models.Fund", b =>
                 {
                     b.Navigation("Categories");
+                });
+
+            modelBuilder.Entity("Infrastructure.Persistence.EntityFramework.Models.Transaction", b =>
+                {
+                    b.Navigation("SplitTransactions");
                 });
 #pragma warning restore 612, 618
         }

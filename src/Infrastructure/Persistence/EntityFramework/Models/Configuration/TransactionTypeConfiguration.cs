@@ -47,6 +47,12 @@ public class TransactionTypeConfiguration : IEntityTypeConfiguration<Transaction
         builder.Property(e => e.CategoryId).HasColumnName("category_id");
 
         builder
+            .HasMany(t => t.SplitTransactions)
+            .WithOne()
+            .HasForeignKey(t => t.TransactionNotSplitInternalId)
+            .HasPrincipalKey(t => t.InternalId);
+
+        builder
             .HasOne(t => t.Recurrence)
             .WithMany()
             .HasForeignKey(t => t.RecurrenceId);

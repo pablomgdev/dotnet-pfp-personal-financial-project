@@ -12,7 +12,6 @@ namespace Api.Controllers.V1;
 [Produces("application/json")]
 public class TransactionsController(
     TransactionsGetter transactionsGetter,
-    // TODO: add a custom logger
     ILogger<TransactionsController>? logger = null
 ) : ApiControllerBase
 {
@@ -29,7 +28,6 @@ public class TransactionsController(
     [ProducesResponseType(StatusCodes.Status500InternalServerError)]
     public async Task<ActionResult<GetTransactionsResponse>> Get([FromQuery] GetTransactionsRequest request)
     {
-        // TODO: before continue, check all the TODOs and complete them.
         var beforeGetTransactionsTimestamp = Stopwatch.GetTimestamp();
         var transactions = await transactionsGetter.Get();
         var afterGetTransactionsTimestamp = Stopwatch.GetTimestamp();
