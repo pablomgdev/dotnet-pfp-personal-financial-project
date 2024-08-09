@@ -9,8 +9,8 @@ public static class RecurrencesMapper
         if (domainRecurrence is null) return null;
         return new Recurrence
         {
-            Id = domainRecurrence?.Id,
-            Type = domainRecurrence?.Type?.MapToDto()
+            Id = domainRecurrence.Id,
+            Type = domainRecurrence.Type?.MapToDto()
         };
     }
 }

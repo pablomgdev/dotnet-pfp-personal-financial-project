@@ -16,7 +16,6 @@ public class Transaction
 
     public bool IsSplit { get; set; }
 
-    // TODO: make this FK to transactions table.
     public int? TransactionNotSplitInternalId { get; set; }
 
     public virtual ICollection<Transaction> SplitTransactions { get; set; }

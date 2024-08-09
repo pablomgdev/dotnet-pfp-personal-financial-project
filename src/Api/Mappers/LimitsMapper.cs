@@ -12,8 +12,7 @@ public static class LimitsMapper
             Id = domainLimit.Id,
             CreatedDate = domainLimit.CreatedDate,
             UpdatedDate = domainLimit.UpdatedDate,
-            Amount = domainLimit.Amount,
-            InternalId = domainLimit.InternalId
+            Amount = domainLimit.Amount
         };
     }
 }

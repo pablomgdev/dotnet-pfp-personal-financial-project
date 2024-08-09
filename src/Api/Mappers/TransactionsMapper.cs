@@ -4,9 +4,8 @@ namespace Api.Mappers;
 
 public static class TransactionsMapper
 {
-    public static Transaction? MapToDto(this Domain.Transactions.Models.Transaction? domainTransaction)
+    public static Transaction MapToDto(this Domain.Transactions.Models.Transaction domainTransaction)
     {
-        if (domainTransaction is null) return null;
         return new Transaction
         {
             Id = domainTransaction.Id.Value,
@@ -16,7 +15,7 @@ public static class TransactionsMapper
             CreatedDate = domainTransaction.CreatedDate,
             UpdatedDate = domainTransaction.UpdatedDate,
             SplitTransactions = domainTransaction.SplitTransactions
-                ?.Select(splitTransaction => splitTransaction?.MapToDto()),
+                ?.Select(splitTransaction => splitTransaction.MapToDto()),
             Recurrence = domainTransaction.Recurrence?.MapToDto(),
             Category = domainTransaction.Category?.MapToDto()
         };
