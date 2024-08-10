@@ -16,6 +16,9 @@ public class Transaction
 
     public bool IsSplit { get; set; }
 
+    /// <summary>
+    ///     If the transactions is part of another transaction, this is not null and references to its parent transaction.
+    /// </summary>
     public int? TransactionNotSplitInternalId { get; set; }
 
     public virtual ICollection<Transaction> SplitTransactions { get; set; }

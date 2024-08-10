@@ -1,4 +1,3 @@
-using System.Diagnostics;
 using Api.Controllers.Base;
 using Api.Mappers;
 using Application.Transactions.Get;
@@ -11,8 +10,7 @@ namespace Api.Controllers.V1;
 [ApiVersion("1.0")]
 [Produces("application/json")]
 public class TransactionsController(
-    TransactionsGetter transactionsGetter,
-    ILogger<TransactionsController>? logger = null
+    TransactionsGetter transactionsGetter
 ) : ApiControllerBase
 {
     /// <summary>
@@ -28,17 +26,10 @@ public class TransactionsController(
     [ProducesResponseType(StatusCodes.Status500InternalServerError)]
     public async Task<ActionResult<GetTransactionsResponse>> Get([FromQuery] GetTransactionsRequest request)
     {
-        var beforeGetTransactionsTimestamp = Stopwatch.GetTimestamp();
         var transactions = await transactionsGetter.Get();
-        var afterGetTransactionsTimestamp = Stopwatch.GetTimestamp();
-        logger?.LogInformation(
-            $"transactionsGetter.Get() elapsed time: {Stopwatch.GetElapsedTime(beforeGetTransactionsTimestamp, afterGetTransactionsTimestamp)}");
         var responseData = transactions
             .Select(domainTransaction => domainTransaction.MapToDto())
             .ToList();
-        var afterGetResponseDataTransactionsTimestamp = Stopwatch.GetTimestamp();
-        logger?.LogInformation(
-            $"Get responseData (LINQ Select) elapsed time: {Stopwatch.GetElapsedTime(afterGetTransactionsTimestamp, afterGetResponseDataTransactionsTimestamp)}");
         return new GetTransactionsResponse(responseData);
     }
 }

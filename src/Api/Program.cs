@@ -52,8 +52,7 @@ var builder = WebApplication.CreateBuilder(args);
     // Infrastructure
     var databaseConnectionString = builder.Configuration.GetConnectionString("Database");
     builder.Services.AddDbContext<PfpTransactionsApiDatabaseContext>(
-        options => { options.UseNpgsql(databaseConnectionString); },
-        ServiceLifetime.Singleton);
+        options => { options.UseNpgsql(databaseConnectionString); });
 
     builder.Services.AddTransient<ITransactionsRepository, EfTransactionsRepository>();
 }
@@ -78,4 +77,8 @@ var app = builder.Build();
     app.UseHttpsRedirection();
     app.MapControllers();
     app.Run();
+}
+
+public partial class Program
+{
 }
