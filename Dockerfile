@@ -14,7 +14,7 @@ COPY src/Contracts/Contracts.csproj src/Contracts/
 COPY src/Application/Application.csproj src/Application/
 COPY src/Domain/Domain.csproj src/Domain/
 COPY src/Infrastructure/Infrastructure.csproj src/Infrastructure/
-COPY src/Test/Test.csproj src/Test/
+COPY src/Test.Unit/Test.Unit.csproj src/Test.Unit/
 RUN dotnet restore
 COPY src/ .
 RUN dotnet build "Api/Api.csproj" -c $BUILD_CONFIGURATION -o /app/build
