@@ -7,7 +7,9 @@ public class Test : IntegrationTest
     }
 
     [Fact]
-    public void Do()
+    public async Task Do()
     {
+        var result = Client.GetAsync("api/v1.0/Transactions");
+        await result;
     }
 }

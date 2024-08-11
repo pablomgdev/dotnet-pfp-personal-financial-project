@@ -1,7 +1,8 @@
+using Infrastructure.Persistence.EntityFramework;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Mvc.Testing;
-using Microsoft.AspNetCore.TestHost;
-using Microsoft.VisualStudio.TestPlatform.TestHost;
+using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.DependencyInjection;
 using Testcontainers.PostgreSql;
 
 namespace Test.Integration;
@@ -18,17 +19,17 @@ public class IntegrationFixture : IAsyncLifetime
             .WithPortBinding(5432, 5432)
             .WithUsername("postgres")
             .WithPassword("postgres")
-            .WithImage("postgres:16")
+            .WithImage("postgres:16.3")
             .Build();
-
-        new WebApplicationFactory<Program>();
     }
+
+    public HttpClient Client { get; set; }
 
     public async Task InitializeAsync()
     {
         await _postgreSqlContainer.StartAsync();
         var app = new MockApp(_postgreSqlContainer.GetConnectionString());
-        var client = app.CreateClient();
+        Client = app.CreateClient();
     }
 
     public async Task DisposeAsync()
@@ -47,9 +48,20 @@ public class IntegrationFixture : IAsyncLifetime
 
         protected override void ConfigureWebHost(IWebHostBuilder builder)
         {
-            // TODO: continue here adding the connectionString (https://www.youtube.com/watch?v=-Dpg9fqXWGM 19:50).
-            builder.ConfigureServices(services => { });
-            builder.ConfigureTestServices(service => { });
+            builder.ConfigureServices(services =>
+            {
+                // Remove the existing database context.
+                var descriptor = services.SingleOrDefault(
+                    d => d.ServiceType == typeof(DbContextOptions<PfpTransactionsApiDatabaseContext>));
+
+                if (descriptor != null) services.Remove(descriptor);
+
+                // Configure the new database context.
+                services.AddDbContext<PfpTransactionsApiDatabaseContext>(options =>
+                {
+                    options.UseNpgsql(_connectionString);
+                });
+            });
         }
     }
 }
@@ -68,4 +80,5 @@ public class IntegrationTest
     }
 
     public IntegrationFixture IntegrationFixture { get; }
+    public HttpClient Client => IntegrationFixture.Client;
 }
