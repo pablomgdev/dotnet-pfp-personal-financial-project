@@ -1,4 +1,5 @@
 using Infrastructure.Persistence.EntityFramework;
+using Infrastructure.Persistence.EntityFramework.Models;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Mvc.Testing;
 using Microsoft.EntityFrameworkCore;
@@ -23,13 +24,14 @@ public class IntegrationFixture : IAsyncLifetime
             .Build();
     }
 
+    public MockApp App { get; set; }
     public HttpClient Client { get; set; }
 
     public async Task InitializeAsync()
     {
         await _postgreSqlContainer.StartAsync();
-        var app = new MockApp(_postgreSqlContainer.GetConnectionString());
-        Client = app.CreateClient();
+        App = new MockApp(_postgreSqlContainer.GetConnectionString());
+        Client = App.CreateClient();
     }
 
     public async Task DisposeAsync()
@@ -72,7 +74,7 @@ public class IntegrationFixtureCollection : ICollectionFixture<IntegrationFixtur
 }
 
 [Collection(nameof(IntegrationFixtureCollection))]
-public class IntegrationTest
+public class IntegrationTest : IAsyncLifetime
 {
     public IntegrationTest(IntegrationFixture integrationFixture)
     {
@@ -81,4 +83,49 @@ public class IntegrationTest
 
     public IntegrationFixture IntegrationFixture { get; }
     public HttpClient Client => IntegrationFixture.Client;
+    public IServiceScope Scope { get; set; }
+    public IServiceProvider Services => Scope.ServiceProvider;
+
+    public Task InitializeAsync()
+    {
+        // TODO: see differences with CreateAsyncScope and use it instead if it is better.
+        Scope = IntegrationFixture.App.Services.CreateScope();
+        var databaseContext = Services.GetRequiredService<PfpTransactionsApiDatabaseContext>();
+        // TODO: delete this example and try to use Bogus or something to fake data.
+        List<Category> categories =
+        [
+            new Category
+            {
+                Id = 0, IsDeleted = false, Name = "Category1"
+            }
+        ];
+        var fund = new Fund
+        {
+            Id = Guid.NewGuid(), IsDeleted = false, Name = "fund1", Categories = categories
+        };
+        categories[0].FundId = fund.Id;
+        databaseContext.AddRange(new List<Transaction>
+        {
+            new()
+            {
+                Amount = 10, Category = categories[0], CategoryId = categories[0].Id, IsDeleted = false,
+                Id = Guid.NewGuid(), InternalId = 1, IsSplit = false, SplitTransactions = []
+            },
+            new()
+            {
+                Amount = 50, Category = categories[0], CategoryId = categories[0].Id, IsDeleted = false,
+                Id = Guid.NewGuid(), InternalId = 2, IsSplit = false, SplitTransactions = []
+            }
+        });
+        databaseContext.Database.EnsureCreatedAsync();
+        return Task.CompletedTask;
+    }
+
+    // TODO: breakpoint to know how many times is called for each tests executed.
+    public Task DisposeAsync()
+    {
+        var databaseContext = Services.GetRequiredService<PfpTransactionsApiDatabaseContext>();
+        databaseContext.Database.EnsureDeletedAsync();
+        return Task.CompletedTask;
+    }
 }
