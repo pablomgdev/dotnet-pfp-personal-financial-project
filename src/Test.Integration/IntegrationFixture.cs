@@ -86,25 +86,28 @@ public class IntegrationTest : IAsyncLifetime
     public IServiceScope Scope { get; set; }
     public IServiceProvider Services => Scope.ServiceProvider;
 
-    public Task InitializeAsync()
+    public async Task InitializeAsync()
     {
         // TODO: see differences with CreateAsyncScope and use it instead if it is better.
         Scope = IntegrationFixture.App.Services.CreateScope();
         var databaseContext = Services.GetRequiredService<PfpTransactionsApiDatabaseContext>();
+        await databaseContext.Database.EnsureCreatedAsync();
         // TODO: delete this example and try to use Bogus or something to fake data.
+        var fund = new Fund
+        {
+            Id = Guid.NewGuid(), IsDeleted = false, Name = "fund1", InternalId = 1
+        };
         List<Category> categories =
         [
             new Category
             {
-                Id = 0, IsDeleted = false, Name = "Category1"
+                Id = 0, IsDeleted = false, Name = "Category1", FundId = fund.Id
             }
         ];
-        var fund = new Fund
-        {
-            Id = Guid.NewGuid(), IsDeleted = false, Name = "fund1", Categories = categories
-        };
-        categories[0].FundId = fund.Id;
-        databaseContext.AddRange(new List<Transaction>
+        fund.Categories = categories;
+        await databaseContext.AddAsync(fund);
+        await databaseContext.AddAsync(categories[0]);
+        await databaseContext.AddRangeAsync(new List<Transaction>
         {
             new()
             {
@@ -117,15 +120,14 @@ public class IntegrationTest : IAsyncLifetime
                 Id = Guid.NewGuid(), InternalId = 2, IsSplit = false, SplitTransactions = []
             }
         });
-        databaseContext.Database.EnsureCreatedAsync();
-        return Task.CompletedTask;
+        databaseContext.SaveChangesAsync().Wait();
     }
 
     // TODO: breakpoint to know how many times is called for each tests executed.
-    public Task DisposeAsync()
+    public async Task DisposeAsync()
     {
         var databaseContext = Services.GetRequiredService<PfpTransactionsApiDatabaseContext>();
-        databaseContext.Database.EnsureDeletedAsync();
-        return Task.CompletedTask;
+        // TODO: see the exception thrown here (something of disposable... see the error).
+        await databaseContext.Database.EnsureDeletedAsync();
     }
 }

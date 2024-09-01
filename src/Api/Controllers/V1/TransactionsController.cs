@@ -30,15 +30,17 @@ public class TransactionsController(
     {
         var beforeGetTransactionsTimestamp = Stopwatch.GetTimestamp();
         var transactions = await transactionsGetter.Get();
-        var afterGetTransactionsTimestamp = Stopwatch.GetTimestamp();
-        logger?.LogInformation(
-            $"transactionsGetter.Get() elapsed time: {Stopwatch.GetElapsedTime(beforeGetTransactionsTimestamp, afterGetTransactionsTimestamp)}");
+        // TODO: check why this line throws an exception when running integration tests.
+        // var afterGetTransactionsTimestamp = Stopwatch.GetTimestamp();
+        // logger?.LogInformation(
+        //     $"transactionsGetter.Get() elapsed time: {Stopwatch.GetElapsedTime(beforeGetTransactionsTimestamp, afterGetTransactionsTimestamp)}");
         var responseData = transactions
             .Select(domainTransaction => domainTransaction.MapToDto())
             .ToList();
         var afterGetResponseDataTransactionsTimestamp = Stopwatch.GetTimestamp();
-        logger?.LogInformation(
-            $"Get responseData (LINQ Select) elapsed time: {Stopwatch.GetElapsedTime(afterGetTransactionsTimestamp, afterGetResponseDataTransactionsTimestamp)}");
+        // TODO: uncomment this line when the TODO above is fixed.
+        // logger?.LogInformation(
+        //     $"Get responseData (LINQ Select) elapsed time: {Stopwatch.GetElapsedTime(afterGetTransactionsTimestamp, afterGetResponseDataTransactionsTimestamp)}");
         return new GetTransactionsResponse(responseData);
     }
 }
