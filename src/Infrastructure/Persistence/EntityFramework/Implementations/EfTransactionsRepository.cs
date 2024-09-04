@@ -1,4 +1,3 @@
-using System.Diagnostics;
 using Domain.Transactions.Repositories;
 using Infrastructure.Mappers;
 using Microsoft.EntityFrameworkCore;
@@ -14,7 +13,6 @@ public class EfTransactionsRepository(
 {
     public async Task<IEnumerable<Transaction>> Get()
     {
-        var beforeGetTransactionsTimestamp = Stopwatch.GetTimestamp();
         var databaseResults = await context.Transactions
             .Where(t => t.TransactionNotSplitInternalId == null)
             .Include(t => t.Category)
@@ -23,9 +21,6 @@ public class EfTransactionsRepository(
             .Include(t => t.SplitTransactions)
             .AsNoTracking()
             .ToListAsync();
-        var afterGetTransactionsTimestamp = Stopwatch.GetTimestamp();
-        // logger?.LogInformation(
-        //     $"context.Transactions.AsNoTracking().ToListAsync() elapsed time: {Stopwatch.GetElapsedTime(beforeGetTransactionsTimestamp, afterGetTransactionsTimestamp)}");
         return databaseResults.Select(databaseResult => databaseResult.MapToDomainModel());
     }
 }

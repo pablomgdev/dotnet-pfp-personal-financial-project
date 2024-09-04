@@ -1,4 +1,3 @@
-using System.Diagnostics;
 using Api.Controllers.Base;
 using Api.Mappers;
 using Application.Transactions.Get;
@@ -28,19 +27,10 @@ public class TransactionsController(
     [ProducesResponseType(StatusCodes.Status500InternalServerError)]
     public async Task<ActionResult<GetTransactionsResponse>> Get([FromQuery] GetTransactionsRequest request)
     {
-        var beforeGetTransactionsTimestamp = Stopwatch.GetTimestamp();
         var transactions = await transactionsGetter.Get();
-        // TODO: check why this line throws an exception when running integration tests.
-        // var afterGetTransactionsTimestamp = Stopwatch.GetTimestamp();
-        // logger?.LogInformation(
-        //     $"transactionsGetter.Get() elapsed time: {Stopwatch.GetElapsedTime(beforeGetTransactionsTimestamp, afterGetTransactionsTimestamp)}");
         var responseData = transactions
             .Select(domainTransaction => domainTransaction.MapToDto())
             .ToList();
-        var afterGetResponseDataTransactionsTimestamp = Stopwatch.GetTimestamp();
-        // TODO: uncomment this line when the TODO above is fixed.
-        // logger?.LogInformation(
-        //     $"Get responseData (LINQ Select) elapsed time: {Stopwatch.GetElapsedTime(afterGetTransactionsTimestamp, afterGetResponseDataTransactionsTimestamp)}");
         return new GetTransactionsResponse(responseData);
     }
 }

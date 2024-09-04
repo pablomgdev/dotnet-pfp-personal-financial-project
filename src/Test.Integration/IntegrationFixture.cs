@@ -88,8 +88,7 @@ public class IntegrationTest : IAsyncLifetime
 
     public async Task InitializeAsync()
     {
-        // TODO: see differences with CreateAsyncScope and use it instead if it is better.
-        Scope = IntegrationFixture.App.Services.CreateScope();
+        Scope = IntegrationFixture.App.Services.CreateAsyncScope();
         var databaseContext = Services.GetRequiredService<PfpTransactionsApiDatabaseContext>();
         await databaseContext.Database.EnsureCreatedAsync();
         // TODO: delete this example and try to use Bogus or something to fake data.
@@ -112,22 +111,22 @@ public class IntegrationTest : IAsyncLifetime
             new()
             {
                 Amount = 10, Category = categories[0], CategoryId = categories[0].Id, IsDeleted = false,
-                Id = Guid.NewGuid(), InternalId = 1, IsSplit = false, SplitTransactions = []
+                Id = Guid.NewGuid(), InternalId = 1, IsSplit = false, SplitTransactions = [], Description = "Prueba1"
             },
             new()
             {
                 Amount = 50, Category = categories[0], CategoryId = categories[0].Id, IsDeleted = false,
-                Id = Guid.NewGuid(), InternalId = 2, IsSplit = false, SplitTransactions = []
+                Id = Guid.NewGuid(), InternalId = 2, IsSplit = false, SplitTransactions = [], Description = "Prueba2"
             }
         });
         databaseContext.SaveChangesAsync().Wait();
     }
 
     // TODO: breakpoint to know how many times is called for each tests executed.
+    // TODO: see the exception thrown where this method ends (something of disposable... see the error).
     public async Task DisposeAsync()
     {
         var databaseContext = Services.GetRequiredService<PfpTransactionsApiDatabaseContext>();
-        // TODO: see the exception thrown here (something of disposable... see the error).
         await databaseContext.Database.EnsureDeletedAsync();
     }
 }
