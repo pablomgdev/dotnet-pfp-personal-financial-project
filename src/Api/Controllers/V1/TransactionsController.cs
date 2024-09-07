@@ -10,8 +10,7 @@ namespace Api.Controllers.V1;
 [ApiVersion("1.0")]
 [Produces("application/json")]
 public class TransactionsController(
-    TransactionsGetter transactionsGetter,
-    ILogger<TransactionsController>? logger = null
+    TransactionsGetter transactionsGetter
 ) : ApiControllerBase
 {
     /// <summary>

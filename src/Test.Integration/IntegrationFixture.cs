@@ -122,8 +122,7 @@ public class IntegrationTest : IAsyncLifetime
         databaseContext.SaveChangesAsync().Wait();
     }
 
-    // TODO: breakpoint to know how many times is called for each tests executed.
-    // TODO: see the exception thrown where this method ends (something of disposable... see the error).
+    // TODO: see the exception thrown where this method ends (something of disposable... see the error). THIS IS NOT THAT IMPORTANT.
     public async Task DisposeAsync()
     {
         var databaseContext = Services.GetRequiredService<PfpTransactionsApiDatabaseContext>();
