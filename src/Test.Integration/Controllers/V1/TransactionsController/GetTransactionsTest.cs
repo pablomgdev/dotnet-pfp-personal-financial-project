@@ -11,7 +11,7 @@ public class GetTransactionsTest : IntegrationTest
     }
 
     [Fact]
-    public async Task Do()
+    public async Task Get_NoParameters_ReturnsAllTransactions()
     {
         var response = Client.GetAsync("api/v1/Transactions");
         var result = await response;
