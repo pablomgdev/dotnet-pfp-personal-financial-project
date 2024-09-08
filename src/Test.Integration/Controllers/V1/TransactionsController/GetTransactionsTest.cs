@@ -2,7 +2,7 @@ using System.Net;
 using Contracts.Transactions;
 using Newtonsoft.Json;
 
-namespace Test.Integration.Controllers.Transactions;
+namespace Test.Integration.Controllers.V1.TransactionsController;
 
 public class GetTransactionsTest : IntegrationTest
 {
