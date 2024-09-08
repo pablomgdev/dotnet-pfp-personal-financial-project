@@ -91,7 +91,9 @@ public class IntegrationTest : IAsyncLifetime
         Scope = IntegrationFixture.App.Services.CreateAsyncScope();
         var databaseContext = Services.GetRequiredService<PfpTransactionsApiDatabaseContext>();
         await databaseContext.Database.EnsureCreatedAsync();
+        // TODO: refactor this using a method to populate database tables with test data.
         // TODO: delete this example and try to use Bogus or something to fake data.
+        // TODO: use design patters to fake data.
         var fund = new Fund
         {
             Id = Guid.NewGuid(), IsDeleted = false, Name = "fund1", InternalId = 1
