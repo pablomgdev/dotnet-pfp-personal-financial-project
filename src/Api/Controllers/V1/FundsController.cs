@@ -27,7 +27,10 @@ public class FundsController : JsonApiControllerBase
         // var responseData = transactions
         //     .Select(domainTransaction => domainTransaction.MapToDto())
         //     .ToList();
-        // TODO: see how to return the endpoint to get the fund by id instead of the object itself.
-        return new CreateFundResponse(null);
+        // TODO: see what to return from this endpoint (URI -there are different "Created" methods- and object -result
+        //  or request or what?-).
+        //  Example from microsoft:
+        //      return CreatedAtAction(nameof(CreateAsync_IActionResult), new { id = product.Id }, product);
+        return Created("https://www.example.com/fund/{fundid}", request);
     }
 }
