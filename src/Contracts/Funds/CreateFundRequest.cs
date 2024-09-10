@@ -1,18 +1,8 @@
-﻿using Contracts.Categories;
+﻿namespace Contracts.Funds;
 
-namespace Contracts.Funds;
-
-// TODO: check properties added. Remove the ones not needed.
 public record CreateFundRequest(
-    Guid Id,
-    int? InternalId,
+    // Id can be set by the client.
+    Guid? Id,
     string? Name,
-    string? Description,
-    decimal? TotalAmount,
-    DateTime? CreatedDate,
-    DateTime? UpdatedDate,
-    bool? IsDeleted,
-    DateTime? DeletedDate,
-    Guid? UserId,
-    ICollection<Category> Categories
+    string? Description
 );

@@ -21,7 +21,7 @@ public class FundsController : JsonApiControllerBase
     [HttpPost]
     [ProducesResponseType(StatusCodes.Status201Created)]
     [ProducesResponseType(StatusCodes.Status500InternalServerError)]
-    public async Task<ActionResult<CreateFundResponse>> Get([FromBody] CreateFundRequest request)
+    public async Task<ActionResult<CreateFundResponse>> Create([FromBody] CreateFundRequest request)
     {
         // var transactions = await transactionsGetter.Get();
         // var responseData = transactions
