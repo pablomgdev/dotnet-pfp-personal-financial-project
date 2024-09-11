@@ -16,6 +16,7 @@ public class FundName : IValueObject
 
     public bool IsValid()
     {
+        // TODO: check also if this is null or empty.
         return Value.Length < MaxValueLength;
     }
 }

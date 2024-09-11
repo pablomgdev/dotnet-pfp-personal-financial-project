@@ -1,4 +1,5 @@
 using Api.Controllers.Base;
+using Application.Funds.Create;
 using Asp.Versioning;
 using Contracts.Funds;
 using Microsoft.AspNetCore.Mvc;
@@ -7,8 +8,16 @@ namespace Api.Controllers.V1;
 
 [ApiVersion("1.0")]
 // TODO: use JsonApiControllerBase in TransactionsController and in the other classes where it is not used.
-public class FundsController : JsonApiControllerBase
+public class FundsController(
+    FundsCreator fundsCreator
+) : JsonApiControllerBase
 {
+    // TODO: implement Get method (this has been added only to be referenced by the CreatedAtAction method).
+    public async Task<ActionResult<Fund>> Get()
+    {
+        return null;
+    }
+
     /// <summary>
     ///     Creates a new fund.<br />
     ///     If no funds currently exist, a global fund will be created along with the new fund.
@@ -23,14 +32,9 @@ public class FundsController : JsonApiControllerBase
     [ProducesResponseType(StatusCodes.Status500InternalServerError)]
     public async Task<ActionResult<CreateFundResponse>> Create([FromBody] CreateFundRequest request)
     {
-        // var transactions = await transactionsGetter.Get();
-        // var responseData = transactions
-        //     .Select(domainTransaction => domainTransaction.MapToDto())
-        //     .ToList();
-        // TODO: see what to return from this endpoint (URI -there are different "Created" methods- and object -result
-        //  or request or what?-).
-        //  Example from microsoft:
-        //      return CreatedAtAction(nameof(CreateAsync_IActionResult), new { id = product.Id }, product);
-        return Created("https://www.example.com/fund/{fundid}", request);
+        var fundCreated = await fundsCreator.Create(request.Id, request.Name, request.Description);
+        // TODO: map from domain to contract class.
+        Fund responseData = null; //fundCreated.MapToDto();
+        return CreatedAtAction(nameof(Create), new { fundId = fundCreated.Id }, responseData);
     }
 }
