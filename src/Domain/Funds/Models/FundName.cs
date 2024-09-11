@@ -2,21 +2,24 @@ using Domain.Funds.Exceptions;
 
 namespace Domain.Funds.Models;
 
-public class FundName : IValueObject
+public class FundName : IValueObject<string>
 {
-    private const int MaxValueLength = 50;
+    private const int MaxLength = 50;
 
     public FundName(string name)
     {
         Value = name;
-        if (!IsValid()) throw new InvalidFundNameLength($"Name cannot be more than {MaxValueLength} characters");
+        Validate();
     }
 
     public string Value { get; set; }
 
-    public bool IsValid()
+    public bool Validate()
     {
-        // TODO: check also if this is null or empty.
-        return Value.Length < MaxValueLength;
+        if (string.IsNullOrEmpty(Value))
+            throw new EmptyFundNameException();
+        if (Value.Length >= MaxLength)
+            throw new FundNameLengthException(MaxLength);
+        return true;
     }
 }

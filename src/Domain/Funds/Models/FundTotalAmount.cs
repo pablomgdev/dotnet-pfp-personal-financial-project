@@ -1,15 +1,16 @@
 namespace Domain.Funds.Models;
 
-public class FundTotalAmount : IValueObject
+public class FundTotalAmount : IValueObject<decimal>
 {
     public FundTotalAmount(decimal totalAmount)
     {
-        TotalAmount = totalAmount;
+        Value = totalAmount;
+        Validate();
     }
 
-    public decimal TotalAmount { get; set; }
+    public decimal Value { get; set; }
 
-    public bool IsValid()
+    public bool Validate()
     {
         return true;
     }

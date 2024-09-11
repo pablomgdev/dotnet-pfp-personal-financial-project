@@ -1,16 +1,16 @@
 namespace Domain.Transactions.Models;
 
-public class TransactionId : IValueObject
+public class TransactionId : IValueObject<Guid>
 {
     public TransactionId(Guid value)
     {
         Value = value;
-        IsValid();
+        Validate();
     }
 
     public Guid Value { get; set; }
 
-    public bool IsValid()
+    public bool Validate()
     {
         return true;
     }

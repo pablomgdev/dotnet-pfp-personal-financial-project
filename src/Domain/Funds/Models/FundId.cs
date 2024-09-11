@@ -1,6 +1,6 @@
 namespace Domain.Funds.Models;
 
-public class FundId : IValueObject
+public class FundId : IValueObject<Guid>
 {
     public FundId(Guid id)
     {
@@ -9,7 +9,7 @@ public class FundId : IValueObject
 
     public Guid Value { get; set; }
 
-    public bool IsValid()
+    public bool Validate()
     {
         return true;
     }

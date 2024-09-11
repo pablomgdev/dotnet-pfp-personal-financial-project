@@ -12,12 +12,6 @@ public class FundsController(
     FundsCreator fundsCreator
 ) : JsonApiControllerBase
 {
-    // TODO: implement Get method (this has been added only to be referenced by the CreatedAtAction method).
-    public async Task<ActionResult<Fund>> Get()
-    {
-        return null;
-    }
-
     /// <summary>
     ///     Creates a new fund.<br />
     ///     If no funds currently exist, a global fund will be created along with the new fund.

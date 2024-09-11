@@ -1,18 +1,23 @@
+using Domain.Transactions.Exceptions;
+
 namespace Domain.Transactions.Models;
 
-public class TransactionDescription : IValueObject
+public class TransactionDescription : IValueObject<string?>
 {
+    private const int MaxLength = 255;
+
     public TransactionDescription(string? value)
     {
         Value = value;
-        // TODO: add domain exceptions for each one (this would be TransactionDescriptionLengthException).
-        if (!IsValid()) throw new Exception("Description cannot have more than 255 characters");
+        Validate();
     }
 
     public string? Value { get; set; }
 
-    public bool IsValid()
+    public bool Validate()
     {
-        return Value?.Length <= 255;
+        if (Value?.Length >= MaxLength)
+            throw new TransactionDescriptionLengthException(MaxLength);
+        return true;
     }
 }

@@ -8,10 +8,9 @@ using Microsoft.AspNetCore.Mvc;
 namespace Api.Controllers.V1;
 
 [ApiVersion("1.0")]
-[Produces("application/json")]
 public class TransactionsController(
     TransactionsGetter transactionsGetter
-) : ApiControllerBase
+) : JsonApiControllerBase
 {
     /// <summary>
     ///     Get incomes and expenses.
