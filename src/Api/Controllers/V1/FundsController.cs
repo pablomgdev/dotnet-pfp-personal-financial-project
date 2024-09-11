@@ -7,7 +7,6 @@ using Microsoft.AspNetCore.Mvc;
 namespace Api.Controllers.V1;
 
 [ApiVersion("1.0")]
-// TODO: use JsonApiControllerBase in TransactionsController and in the other classes where it is not used.
 public class FundsController(
     FundsCreator fundsCreator
 ) : JsonApiControllerBase
