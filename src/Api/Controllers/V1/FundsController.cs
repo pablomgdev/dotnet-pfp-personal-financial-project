@@ -1,4 +1,5 @@
 using Api.Controllers.Base;
+using Api.Mappers;
 using Application.Funds.Create;
 using Asp.Versioning;
 using Contracts.Funds;
@@ -27,8 +28,7 @@ public class FundsController(
     public async Task<ActionResult<CreateFundResponse>> Create([FromBody] CreateFundRequest request)
     {
         var fundCreated = await fundsCreator.Create(request.Id, request.Name, request.Description);
-        // TODO: map from domain to contract class.
-        Fund responseData = null; //fundCreated.MapToDto();
+        var responseData = fundCreated.MapToDto();
         return CreatedAtAction(nameof(Create), new { fundId = fundCreated.Id }, responseData);
     }
 }

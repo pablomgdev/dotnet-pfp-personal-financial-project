@@ -1,9 +1,11 @@
 using System.Reflection;
 using System.Text.Json.Serialization;
 using Api.Options;
+using Application.Funds.Create;
 using Application.Transactions.Get;
 using Asp.Versioning;
 using Asp.Versioning.ApiExplorer;
+using Domain.Funds.Repositories;
 using Domain.Transactions.Repositories;
 using Infrastructure.Persistence.EntityFramework;
 using Infrastructure.Persistence.EntityFramework.Implementations;
@@ -46,6 +48,7 @@ var builder = WebApplication.CreateBuilder(args);
     // Dependency injection
     // Application
     builder.Services.AddTransient<TransactionsGetter>();
+    builder.Services.AddTransient<FundsCreator>();
 
     // Domain
 
@@ -55,6 +58,7 @@ var builder = WebApplication.CreateBuilder(args);
         options => { options.UseNpgsql(databaseConnectionString); });
 
     builder.Services.AddTransient<ITransactionsRepository, EfTransactionsRepository>();
+    builder.Services.AddTransient<IFundsRepository, EfFundsRepository>();
 }
 
 var app = builder.Build();

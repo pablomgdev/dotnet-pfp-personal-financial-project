@@ -10,8 +10,7 @@ public class FundsCreator(
     public async Task<Fund> Create(Guid? fundId, string? fundName, string? fundDescription)
     {
         var fundToCreateId = new FundId(fundId ?? Guid.NewGuid());
-        //  Infrastructure Fund model could have exclusive properties whose values would be set in the repository before
-        //  been inserted.
+        // TODO: check if GUID already exists in database.
         var fundToCreate = new Fund(
             fundToCreateId,
             new FundName(fundName),

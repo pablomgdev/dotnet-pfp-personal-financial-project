@@ -2,10 +2,9 @@
 
 namespace Contracts.Funds;
 
-// TODO: check properties added. Remove the ones not needed.
 public class Fund
 {
-    public Guid Id { get; set; }
+    public Guid? Id { get; set; }
     public int? InternalId { get; set; }
     public string? Name { get; set; }
     public string? Description { get; set; }
