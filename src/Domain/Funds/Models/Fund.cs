@@ -2,6 +2,7 @@ using Domain.User.Models;
 
 namespace Domain.Funds.Models;
 
+// TODO: check if all the properties that fund class has should be there or only in the infrastructure model.
 public class Fund(
     FundId id,
     FundName name,
@@ -21,5 +22,5 @@ public class Fund(
     public DateTime? UpdatedDate { get; set; } = updatedDate;
     public bool IsDeleted { get; set; } = isDeleted;
     public DateTime? DeletedDate { get; set; } = deletedDate;
-    public UserId UserId { get; set; } = userId;
+    public UserId? UserId { get; set; } = userId;
 }

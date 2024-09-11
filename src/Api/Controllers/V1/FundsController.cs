@@ -11,6 +11,7 @@ public class FundsController(
     FundsCreator fundsCreator
 ) : JsonApiControllerBase
 {
+    // TODO: <br /> does not work in swagger. Fix it.
     /// <summary>
     ///     Creates a new fund.<br />
     ///     If no funds currently exist, a global fund will be created along with the new fund.
