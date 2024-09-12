@@ -25,6 +25,7 @@ public class FundsController(
     [MapToApiVersion("1.0")]
     [HttpPost]
     [ProducesResponseType(StatusCodes.Status201Created)]
+    [ProducesResponseType(StatusCodes.Status409Conflict)]
     [ProducesResponseType(StatusCodes.Status500InternalServerError)]
     public async Task<ActionResult<CreateFundResponse>> Create([FromBody] CreateFundRequest request)
     {
