@@ -6,6 +6,7 @@ using Application.Transactions.Get;
 using Asp.Versioning;
 using Asp.Versioning.ApiExplorer;
 using Domain.Funds.Repositories;
+using Domain.Funds.Services;
 using Domain.Transactions.Repositories;
 using Infrastructure.Persistence.EntityFramework;
 using Infrastructure.Persistence.EntityFramework.Implementations;
@@ -51,6 +52,7 @@ var builder = WebApplication.CreateBuilder(args);
     builder.Services.AddTransient<FundsCreator>();
 
     // Domain
+    builder.Services.AddTransient<FundFinder>();
 
     // Infrastructure
     var databaseConnectionString = builder.Configuration.GetConnectionString("Database");

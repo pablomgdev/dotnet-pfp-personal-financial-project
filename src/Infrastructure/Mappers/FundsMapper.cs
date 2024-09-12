@@ -5,8 +5,9 @@ namespace Infrastructure.Mappers;
 public static class FundsMapper
 {
     public static Fund? MapToDomainModel(
-        this Persistence.EntityFramework.Models.Fund persistenceModel)
+        this Persistence.EntityFramework.Models.Fund? persistenceModel)
     {
+        if (persistenceModel is null) return null;
         return new Fund(
             new FundId(persistenceModel.Id),
             new FundName(persistenceModel.Name ?? string.Empty),
