@@ -29,7 +29,8 @@ public class FundTypeConfiguration : IEntityTypeConfiguration<Fund>
             .HasColumnName("description");
         builder.Property(e => e.InternalId)
             .IsRequired()
-            .HasColumnName("internal_id");
+            .HasColumnName("internal_id")
+            .UseIdentityAlwaysColumn();
         builder.Property(e => e.IsDeleted)
             .HasColumnType("boolean")
             .HasColumnName("is_deleted");

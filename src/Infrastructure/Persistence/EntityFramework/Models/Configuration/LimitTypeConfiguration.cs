@@ -25,8 +25,8 @@ public class LimitTypeConfiguration : IEntityTypeConfiguration<Limit>
             .HasColumnName("deleted_date");
         builder
             .Property(e => e.InternalId)
-            .ValueGeneratedOnAdd()
-            .HasColumnName("internal_id");
+            .HasColumnName("internal_id")
+            .UseIdentityAlwaysColumn();
         builder.Property(e => e.IsDeleted)
             .HasColumnType("boolean")
             .HasColumnName("is_deleted");

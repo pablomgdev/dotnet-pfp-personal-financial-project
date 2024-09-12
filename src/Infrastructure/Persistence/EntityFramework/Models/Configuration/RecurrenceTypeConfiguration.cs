@@ -12,8 +12,9 @@ public class RecurrenceTypeConfiguration : IEntityTypeConfiguration<Recurrence>
         builder.ToTable("recurrences");
 
         builder.Property(e => e.Id)
-            .ValueGeneratedOnAdd()
-            .HasColumnName("id");
+            .HasColumnName("id")
+            .UseIdentityAlwaysColumn();
+        ;
         builder.Property(e => e.CreatedDate)
             .HasColumnType("timestamp without time zone")
             .HasColumnName("created_date");
