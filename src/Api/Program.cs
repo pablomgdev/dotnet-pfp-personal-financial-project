@@ -1,7 +1,7 @@
 using System.Reflection;
 using System.Text.Json.Serialization;
 using Api.Options;
-using Application.Funds.Create;
+using Application.Funds;
 using Application.Transactions.Get;
 using Asp.Versioning;
 using Asp.Versioning.ApiExplorer;
