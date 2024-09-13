@@ -30,7 +30,7 @@ public class FundsController(
         // TODO: create a middleware to handle errors.
         try
         {
-            var fundCreated = await fundsCreator.Execute(request.Id, request.Name, request.Description);
+            var fundCreated = await fundsCreator.Invoke(request.Id, request.Name, request.Description);
             var responseData = fundCreated.MapToDto();
             return CreatedAtAction(nameof(Create), new { fundId = fundCreated.Id }, responseData);
         }

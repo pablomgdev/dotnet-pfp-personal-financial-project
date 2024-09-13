@@ -10,7 +10,7 @@ public class FundsCreator(
     FundFinder fundFinder
 )
 {
-    public async Task<Fund> Execute(Guid? fundId, string? fundName, string? fundDescription)
+    public async Task<Fund> Invoke(Guid? fundId, string? fundName, string? fundDescription)
     {
         Fund fundFound = null;
         if (fundId.HasValue) fundFound = await fundFinder.Find(fundId.Value);
