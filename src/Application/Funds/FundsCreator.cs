@@ -6,14 +6,17 @@ using Domain.Funds.Services;
 namespace Application.Funds;
 
 public class FundsCreator(
-    IFundsRepository fundsRepository,
-    FundFinder fundFinder
+    IFundsRepository fundsRepository
 )
 {
+    // Creating without the dependency injection make easier testing.
+    //  It adds other problems but let us try if it is worth it.
+    private readonly FundSearcher _fundSearcher = new(fundsRepository);
+
     public async Task<Fund> Invoke(Guid? fundId, string? fundName, string? fundDescription)
     {
-        Fund fundFound = null;
-        if (fundId.HasValue) fundFound = await fundFinder.Find(fundId.Value);
+        Fund? fundFound = null;
+        if (fundId.HasValue) fundFound = await _fundSearcher.Search(fundId.Value);
 
         if (fundFound is not null) throw new FundAlreadyExistsException(fundFound.Id);
 
