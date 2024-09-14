@@ -2,7 +2,7 @@ using System.Collections;
 
 namespace Test.Unit.Contracts.Funds;
 
-public class CreateFundRequestHappyPathData : IEnumerable<object[]>
+public class CreateFundRequestEmptyNameData : IEnumerable<object[]>
 {
     IEnumerator IEnumerable.GetEnumerator()
     {
@@ -11,7 +11,7 @@ public class CreateFundRequestHappyPathData : IEnumerable<object[]>
 
     public IEnumerator<object[]> GetEnumerator()
     {
-        yield return [CreateFundRequestMother.WithoutId()];
-        yield return [CreateFundRequestMother.Random()];
+        yield return [CreateFundRequestMother.WithoutId(string.Empty)];
+        yield return [CreateFundRequestMother.Apply(name: string.Empty)];
     }
 }

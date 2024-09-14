@@ -1,6 +1,7 @@
 using Application.Funds;
 using Contracts.Funds;
 using Domain.Funds.Exceptions;
+using Domain.Funds.Models;
 using Domain.Funds.Repositories;
 using Test.Unit.Contracts.Funds;
 using Test.Unit.Domain.Funds;
@@ -19,12 +20,12 @@ public class FundsCreatorShould
         _fundsCreator = new FundsCreator(_fundsRepository);
     }
 
-    [Theory]
-    [ClassData(typeof(CreateFundRequestHappyPathData))]
-    public void Invoke_HappyPath_CreatesTheFund(CreateFundRequest parameters)
+    [Fact]
+    public void Invoke_PassingId_CreatesTheFund()
     {
         // Given
         var fund = FundMother.Random();
+        var parameters = CreateFundRequestMother.Random();
 
         _fundsRepository.Get(fund.Id).Returns(null as Task<Fund?>);
         _fundsRepository.Create(fund).Returns(fund);
@@ -33,17 +34,46 @@ public class FundsCreatorShould
         _ = InvokeUseOfCaseWithParameters(_fundsCreator, parameters);
 
         // Then
-        // This could be deleted as only check if Create method has been executed.
-        var findNumberOfCalls = _fundsRepository
-            .ReceivedCalls()
-            .Count(x => x.GetMethodInfo().Name == nameof(_fundsRepository.Get));
-        Assert.InRange(findNumberOfCalls, 0, 1);
+        _fundsRepository.Received().Get(Arg.Any<FundId>());
+        _fundsRepository.Received().Create(Arg.Any<Fund>());
+    }
+
+    [Fact]
+    public void Invoke_WithoutPassingId_CreatesTheFund()
+    {
+        // Given
+        var fund = FundMother.Random();
+        var parameters = CreateFundRequestMother.WithoutId();
+
+        _fundsRepository.Create(fund).Returns(fund);
+
+        // When
+        _ = InvokeUseOfCaseWithParameters(_fundsCreator, parameters);
+
+        // Then
         _fundsRepository.Received().Create(Arg.Any<Fund>());
     }
 
     [Theory]
-    [ClassData(typeof(CreateFundRequestInvalidNameData))]
-    public async void Invoke_InvalidParameters_ThrowsException(CreateFundRequest parameters)
+    [ClassData(typeof(CreateFundRequestEmptyNameData))]
+    public async void Invoke_EmptyName_ThrowsException(CreateFundRequest parameters)
+    {
+        // Given
+        var fund = FundMother.Random();
+
+        _fundsRepository.Get(fund.Id).Returns(null as Task<Fund?>);
+
+        // When
+        var exception = await Assert.ThrowsAsync<EmptyFundNameException>(() =>
+            InvokeUseOfCaseWithParameters(_fundsCreator, parameters));
+
+        // Then
+        Assert.True(exception is not null, "Everything was OK and no exception was thrown.");
+    }
+
+    [Theory]
+    [ClassData(typeof(CreateFundRequestNameExceedsMaxLengthData))]
+    public async void Invoke_NameExceedsNameMaxLength_ThrowsException(CreateFundRequest parameters)
     {
         // Given
         var fund = FundMother.Random();
@@ -52,17 +82,32 @@ public class FundsCreatorShould
         _fundsRepository.Create(fund).Returns(fund);
 
         // When
-        var exception =
-            await Assert.ThrowsAnyAsync<Exception>(() => InvokeUseOfCaseWithParameters(_fundsCreator, parameters));
+        var exception = await Assert.ThrowsAsync<FundNameLengthException>(() =>
+            InvokeUseOfCaseWithParameters(_fundsCreator, parameters));
 
         // Then
-        var exceptionWasThrown = exception is EmptyFundNameException
-            or FundNameLengthException
-            or FundAlreadyExistsException
-            or EmptyFundDescriptionException
-            or FundDescriptionLengthException;
-        Assert.True(exceptionWasThrown, "Everything was OK and no exception was thrown.");
+        Assert.True(exception is not null, "Everything was OK and no exception was thrown.");
     }
+
+    // TODO: check what is wrong with this test.
+    [Fact]
+    public async void Invoke_FundAlreadyExists_ThrowsException()
+    {
+        // Given
+        var fund = FundMother.Random();
+        var parameters = CreateFundRequestMother.Random();
+
+        _fundsRepository.Get(fund.Id).Returns(fund);
+
+        // When
+        var exception = await Assert.ThrowsAsync<FundAlreadyExistsException>(() =>
+            InvokeUseOfCaseWithParameters(_fundsCreator, parameters));
+
+        // Then
+        Assert.True(exception is not null, "Everything was OK and no exception was thrown.");
+    }
+
+    // TODO: add missing unit tests for the rest of the cases.
 
     /// <summary>
     ///     Just in case the parameters of the invoke method change. To reduce the number of methods to update.
