@@ -9,7 +9,7 @@ public class FundsCreator(
     IFundsRepository fundsRepository
 )
 {
-    // Creating without the dependency injection make easier testing.
+    // Creating without the dependency injection makes easier testing.
     //  It adds other problems but let us try if it is worth it.
     private readonly FundSearcher _fundSearcher = new(fundsRepository);
 

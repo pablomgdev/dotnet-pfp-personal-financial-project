@@ -51,8 +51,9 @@ var builder = WebApplication.CreateBuilder(args);
     builder.Services.AddTransient<TransactionsGetter>();
     builder.Services.AddTransient<FundsCreator>();
 
-    // Domain
+    // Domain (most of the cases this is instanciated directly in the application layer use of case)
     builder.Services.AddTransient<FundFinder>();
+    builder.Services.AddTransient<FundSearcher>();
 
     // Infrastructure
     var databaseConnectionString = builder.Configuration.GetConnectionString("Database");

@@ -27,8 +27,8 @@ public class FundsCreatorShould
         var fund = FundMother.Random();
         var parameters = CreateFundRequestMother.Random();
 
-        _fundsRepository.Get(fund.Id).Returns(null as Task<Fund?>);
-        _fundsRepository.Create(fund).Returns(fund);
+        _fundsRepository.Get(fund.Id).ReturnsForAnyArgs(null as Task<Fund?>);
+        _fundsRepository.Create(fund).ReturnsForAnyArgs(fund);
 
         // When
         _ = InvokeUseOfCaseWithParameters(_fundsCreator, parameters);
@@ -45,7 +45,7 @@ public class FundsCreatorShould
         var fund = FundMother.Random();
         var parameters = CreateFundRequestMother.WithoutId();
 
-        _fundsRepository.Create(fund).Returns(fund);
+        _fundsRepository.Create(fund).ReturnsForAnyArgs(fund);
 
         // When
         _ = InvokeUseOfCaseWithParameters(_fundsCreator, parameters);
@@ -61,7 +61,7 @@ public class FundsCreatorShould
         // Given
         var fund = FundMother.Random();
 
-        _fundsRepository.Get(fund.Id).Returns(null as Task<Fund?>);
+        _fundsRepository.Get(fund.Id).ReturnsForAnyArgs(null as Task<Fund?>);
 
         // When
         var exception = await Assert.ThrowsAsync<EmptyFundNameException>(() =>
@@ -78,8 +78,8 @@ public class FundsCreatorShould
         // Given
         var fund = FundMother.Random();
 
-        _fundsRepository.Get(fund.Id).Returns(null as Task<Fund?>);
-        _fundsRepository.Create(fund).Returns(fund);
+        _fundsRepository.Get(fund.Id).ReturnsForAnyArgs(null as Task<Fund?>);
+        _fundsRepository.Create(fund).ReturnsForAnyArgs(fund);
 
         // When
         var exception = await Assert.ThrowsAsync<FundNameLengthException>(() =>
@@ -89,7 +89,6 @@ public class FundsCreatorShould
         Assert.True(exception is not null, "Everything was OK and no exception was thrown.");
     }
 
-    // TODO: check what is wrong with this test.
     [Fact]
     public async void Invoke_FundAlreadyExists_ThrowsException()
     {
@@ -97,7 +96,7 @@ public class FundsCreatorShould
         var fund = FundMother.Random();
         var parameters = CreateFundRequestMother.Random();
 
-        _fundsRepository.Get(fund.Id).Returns(fund);
+        _fundsRepository.Get(fund.Id).ReturnsForAnyArgs(fund);
 
         // When
         var exception = await Assert.ThrowsAsync<FundAlreadyExistsException>(() =>
@@ -107,7 +106,7 @@ public class FundsCreatorShould
         Assert.True(exception is not null, "Everything was OK and no exception was thrown.");
     }
 
-    // TODO: add missing unit tests for the rest of the cases.
+    // TODO: add missing unit tests for the rest of the cases (description empty and description exceeds max length).
 
     /// <summary>
     ///     Just in case the parameters of the invoke method change. To reduce the number of methods to update.
