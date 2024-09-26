@@ -27,8 +27,8 @@ public class FundsCreatorShould
         var fund = FundMother.Random();
         var parameters = CreateFundRequestMother.Random();
 
-        _fundsRepository.Get(fund.Id).ReturnsForAnyArgs(null as Task<Fund?>);
-        _fundsRepository.Create(fund).ReturnsForAnyArgs(fund);
+        _fundsRepository.Get(Arg.Any<FundId>()).ReturnsForAnyArgs(Task.FromResult<Fund?>(null));
+        _fundsRepository.Create(Arg.Any<Fund>()).ReturnsForAnyArgs(fund);
 
         // When
         _ = InvokeUseOfCaseWithParameters(_fundsCreator, parameters);
@@ -45,7 +45,7 @@ public class FundsCreatorShould
         var fund = FundMother.Random();
         var parameters = CreateFundRequestMother.WithoutId();
 
-        _fundsRepository.Create(fund).ReturnsForAnyArgs(fund);
+        _fundsRepository.Create(Arg.Any<Fund>()).ReturnsForAnyArgs(fund);
 
         // When
         _ = InvokeUseOfCaseWithParameters(_fundsCreator, parameters);
@@ -61,7 +61,7 @@ public class FundsCreatorShould
         // Given
         var fund = FundMother.Random();
 
-        _fundsRepository.Get(fund.Id).ReturnsForAnyArgs(null as Task<Fund?>);
+        _fundsRepository.Get(Arg.Any<FundId>()).ReturnsForAnyArgs(Task.FromResult<Fund?>(null));
 
         // When
         var exception = await Assert.ThrowsAsync<EmptyFundNameException>(() =>
@@ -78,8 +78,8 @@ public class FundsCreatorShould
         // Given
         var fund = FundMother.Random();
 
-        _fundsRepository.Get(fund.Id).ReturnsForAnyArgs(null as Task<Fund?>);
-        _fundsRepository.Create(fund).ReturnsForAnyArgs(fund);
+        _fundsRepository.Get(Arg.Any<FundId>()).ReturnsForAnyArgs(Task.FromResult<Fund?>(null));
+        _fundsRepository.Create(Arg.Any<Fund>()).ReturnsForAnyArgs(fund);
 
         // When
         var exception = await Assert.ThrowsAsync<FundNameLengthException>(() =>
@@ -96,7 +96,7 @@ public class FundsCreatorShould
         var fund = FundMother.Random();
         var parameters = CreateFundRequestMother.Random();
 
-        _fundsRepository.Get(fund.Id).ReturnsForAnyArgs(fund);
+        _fundsRepository.Get(Arg.Any<FundId>()).ReturnsForAnyArgs(fund);
 
         // When
         var exception = await Assert.ThrowsAsync<FundAlreadyExistsException>(() =>
