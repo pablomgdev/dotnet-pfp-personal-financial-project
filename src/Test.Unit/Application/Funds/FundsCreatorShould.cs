@@ -106,7 +106,39 @@ public class FundsCreatorShould
         Assert.True(exception is not null, "Everything was OK and no exception was thrown.");
     }
 
-    // TODO: add missing unit tests for the rest of the cases (description empty and description exceeds max length).
+    [Theory]
+    [ClassData(typeof(CreateFundRequestEmptyDescriptionData))]
+    public async void Invoke_EmptyDescription_ThrowsException(CreateFundRequest parameters)
+    {
+        // Given
+        var fund = FundMother.Random();
+
+        _fundsRepository.Get(Arg.Any<FundId>()).ReturnsForAnyArgs(Task.FromResult<Fund?>(null));
+
+        // When
+        var exception = await Assert.ThrowsAsync<EmptyFundDescriptionException>(() =>
+            InvokeUseOfCaseWithParameters(_fundsCreator, parameters));
+
+        // Then
+        Assert.True(exception is not null, "Everything was OK and no exception was thrown.");
+    }
+
+    [Theory]
+    [ClassData(typeof(CreateFundRequestDescriptionExceedsMaxLengthData))]
+    public async void Invoke_DescriptionExceedsNameMaxLength_ThrowsException(CreateFundRequest parameters)
+    {
+        // Given
+        var fund = FundMother.Random();
+
+        _fundsRepository.Get(Arg.Any<FundId>()).ReturnsForAnyArgs(Task.FromResult<Fund?>(null));
+
+        // When
+        var exception = await Assert.ThrowsAsync<FundDescriptionLengthException>(() =>
+            InvokeUseOfCaseWithParameters(_fundsCreator, parameters));
+
+        // Then
+        Assert.True(exception is not null, "Everything was OK and no exception was thrown.");
+    }
 
     /// <summary>
     ///     Just in case the parameters of the invoke method change. To reduce the number of methods to update.
