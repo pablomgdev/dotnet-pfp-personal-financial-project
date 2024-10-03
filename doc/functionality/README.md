@@ -25,7 +25,7 @@ A category is a label associated with a transaction to classify it and perform a
 ## Funds
 A fund is a record of the amount of money a user has, affected by the transactions made on one or more specific categories.
 ### General
-- [ ] The user can create funds.
+- [x] The user can create funds.
 - [ ] The user can delete funds.
 - [ ] The user can link their funds to their categories. The income/expenses added to those categories will affect the fund's amount.
 - [ ] The user can view the amount in their funds.

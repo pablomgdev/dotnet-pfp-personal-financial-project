@@ -23,7 +23,7 @@ Una categoría es una etiqueta que se asocia a una [operación](README.es-ES.md#
 ## Fondos
 Un fondo es un registro con la cantidad de dinero de la que dispone un usuario y que es afectado por las [operaciones](README.es-ES.md#operaciones) realizadas sobre una o más [categorías](README.es-ES.md#categor%C3%ADas) concretas.
 ### General
-- [ ] El usuario puede crear fondos.
+- [x] El usuario puede crear fondos.
 - [ ] El usuario puede eliminar fondos.
 - [ ] El usuario puede relacionar sus fondos con sus [categorías](README.es-ES.md#categor%C3%ADas). Los ingresos/gastos añadidos a dichas [categorías](README.es-ES.md#categor%C3%ADas) afectarán a la cantidad del fondo.
 - [ ] El usuario puede consultar la cantidad de sus fondos.
