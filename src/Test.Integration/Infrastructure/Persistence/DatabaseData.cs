@@ -11,7 +11,7 @@ public static class DatabaseData
         // TODO: use design patters to fake data (motherboard, for example). -waiting add fund feature to be merged-
         var fund = new Fund
         {
-            Id = Guid.NewGuid(), IsDeleted = false, Name = "fund1", InternalId = 1
+            Id = Guid.NewGuid(), IsDeleted = false, Name = "fund1"
         };
         List<Category> categories =
         [
@@ -28,12 +28,12 @@ public static class DatabaseData
             new()
             {
                 Amount = 10, Category = categories[0], CategoryId = categories[0].Id, IsDeleted = false,
-                Id = Guid.NewGuid(), InternalId = 1, IsSplit = false, SplitTransactions = [], Description = "Prueba1"
+                Id = Guid.NewGuid(), IsSplit = false, SplitTransactions = [], Description = "Prueba1"
             },
             new()
             {
                 Amount = 50, Category = categories[0], CategoryId = categories[0].Id, IsDeleted = false,
-                Id = Guid.NewGuid(), InternalId = 2, IsSplit = false, SplitTransactions = [], Description = "Prueba2"
+                Id = Guid.NewGuid(), IsSplit = false, SplitTransactions = [], Description = "Prueba2"
             }
         });
         databaseContext.SaveChangesAsync().Wait();

@@ -1,6 +1,7 @@
 namespace Domain;
 
-public interface IValueObject
+public interface IValueObject<T>
 {
-    public bool IsValid();
+    public T Value { get; set; }
+    public bool Validate();
 }

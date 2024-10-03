@@ -1,16 +1,17 @@
 namespace Domain.User.Models;
 
-public class UserId : IValueObject
+// TODO: as this class is used in other entities it should be in a shared folder.
+public class UserId : IValueObject<Guid?>
 {
     public UserId(Guid? value)
     {
         Value = value;
-        IsValid();
+        Validate();
     }
 
     public Guid? Value { get; set; }
 
-    public bool IsValid()
+    public bool Validate()
     {
         return true;
     }

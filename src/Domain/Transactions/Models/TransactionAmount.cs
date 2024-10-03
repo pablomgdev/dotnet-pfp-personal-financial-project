@@ -1,16 +1,16 @@
 namespace Domain.Transactions.Models;
 
-public class TransactionAmount : IValueObject
+public class TransactionAmount : IValueObject<decimal?>
 {
     public TransactionAmount(decimal? value)
     {
         Value = value;
-        IsValid();
+        Validate();
     }
 
     public decimal? Value { get; set; }
 
-    public bool IsValid()
+    public bool Validate()
     {
         return true;
     }

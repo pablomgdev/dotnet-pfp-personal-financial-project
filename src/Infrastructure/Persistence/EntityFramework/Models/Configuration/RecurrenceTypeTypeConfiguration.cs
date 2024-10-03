@@ -12,8 +12,8 @@ public class RecurrenceTypeTypeConfiguration : IEntityTypeConfiguration<Recurren
         builder.ToTable("recurrence_types");
 
         builder.Property(e => e.Id)
-            .ValueGeneratedOnAdd()
-            .HasColumnName("id");
+            .HasColumnName("id")
+            .UseIdentityAlwaysColumn();
         builder.Property(e => e.Name)
             .HasColumnName("name");
     }

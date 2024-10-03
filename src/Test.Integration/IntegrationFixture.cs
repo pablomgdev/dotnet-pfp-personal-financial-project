@@ -1,4 +1,5 @@
 using Infrastructure.Persistence.EntityFramework;
+using Infrastructure.Persistence.EntityFramework.Models;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Mvc.Testing;
 using Microsoft.EntityFrameworkCore;

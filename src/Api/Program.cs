@@ -1,9 +1,12 @@
 using System.Reflection;
 using System.Text.Json.Serialization;
 using Api.Options;
+using Application.Funds;
 using Application.Transactions.Get;
 using Asp.Versioning;
 using Asp.Versioning.ApiExplorer;
+using Domain.Funds.Repositories;
+using Domain.Funds.Services;
 using Domain.Transactions.Repositories;
 using Infrastructure.Persistence.EntityFramework;
 using Infrastructure.Persistence.EntityFramework.Implementations;
@@ -46,8 +49,11 @@ var builder = WebApplication.CreateBuilder(args);
     // Dependency injection
     // Application
     builder.Services.AddTransient<TransactionsGetter>();
+    builder.Services.AddTransient<FundsCreator>();
 
-    // Domain
+    // Domain (most of the cases this is instanciated directly in the application layer use of case)
+    builder.Services.AddTransient<FundFinder>();
+    builder.Services.AddTransient<FundSearcher>();
 
     // Infrastructure
     var databaseConnectionString = builder.Configuration.GetConnectionString("Database");
@@ -55,6 +61,7 @@ var builder = WebApplication.CreateBuilder(args);
         options => { options.UseNpgsql(databaseConnectionString); });
 
     builder.Services.AddTransient<ITransactionsRepository, EfTransactionsRepository>();
+    builder.Services.AddTransient<IFundsRepository, EfFundsRepository>();
 }
 
 var app = builder.Build();

@@ -14,7 +14,6 @@ public class TransactionTypeConfiguration : IEntityTypeConfiguration<Transaction
         builder.HasIndex(e => e.InternalId, "transactions_internal_id_key").IsUnique();
 
         builder.Property(e => e.Id)
-            .ValueGeneratedNever()
             .HasColumnName("id");
         builder.Property(e => e.Amount).HasColumnName("amount");
         builder.Property(e => e.CreatedDate)
@@ -27,9 +26,9 @@ public class TransactionTypeConfiguration : IEntityTypeConfiguration<Transaction
             .HasMaxLength(255)
             .HasColumnName("description");
         builder.Property(e => e.InternalId)
-            .ValueGeneratedOnAdd()
             .IsRequired()
-            .HasColumnName("internal_id");
+            .HasColumnName("internal_id")
+            .UseIdentityAlwaysColumn();
         builder.Property(e => e.IsDeleted)
             .HasColumnType("boolean")
             .HasColumnName("is_deleted");
