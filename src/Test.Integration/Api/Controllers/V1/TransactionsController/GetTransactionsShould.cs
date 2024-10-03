@@ -4,9 +4,9 @@ using Newtonsoft.Json;
 
 namespace Test.Integration.Api.Controllers.V1.TransactionsController;
 
-public class GetShould : IntegrationTest
+public class GetTransactionsShould : IntegrationTest
 {
-    public GetShould(IntegrationFixture integrationFixture) : base(integrationFixture)
+    public GetTransactionsShould(IntegrationFixture integrationFixture) : base(integrationFixture)
     {
     }
 
@@ -15,7 +15,7 @@ public class GetShould : IntegrationTest
     {
         // Arrange.
         // Act.
-        var responseTask = Client.GetAsync(HttpUtility.Urls.GetAllTransactionsV1);
+        var responseTask = Client.GetAsync(HttpHelper.Urls.GetAllTransactionsV1);
         // Assert.
         var response = await responseTask;
         response.StatusCode.Should().Be(HttpStatusCode.OK);

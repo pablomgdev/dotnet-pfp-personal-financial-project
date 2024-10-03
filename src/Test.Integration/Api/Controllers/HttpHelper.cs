@@ -1,6 +1,6 @@
 namespace Test.Integration.Api.Controllers;
 
-public sealed class HttpUtility
+public sealed class HttpHelper
 {
     public static class Urls
     {
