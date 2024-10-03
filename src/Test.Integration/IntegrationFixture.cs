@@ -4,6 +4,7 @@ using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Mvc.Testing;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
+using Test.Integration.Infrastructure.Persistence;
 using Testcontainers.PostgreSql;
 
 namespace Test.Integration;
@@ -91,40 +92,9 @@ public class IntegrationTest : IAsyncLifetime
         Scope = IntegrationFixture.App.Services.CreateAsyncScope();
         var databaseContext = Services.GetRequiredService<PfpTransactionsApiDatabaseContext>();
         await databaseContext.Database.EnsureCreatedAsync();
-        // TODO: refactor this using a method to populate database tables with test data.
-        // TODO: delete this example and try to use Bogus or something to fake data.
-        // TODO: use design patters to fake data.
-        var fund = new Fund
-        {
-            Id = Guid.NewGuid(), IsDeleted = false, Name = "fund1", InternalId = 1
-        };
-        List<Category> categories =
-        [
-            new Category
-            {
-                Id = 0, IsDeleted = false, Name = "Category1", FundId = fund.Id
-            }
-        ];
-        fund.Categories = categories;
-        await databaseContext.AddAsync(fund);
-        await databaseContext.AddAsync(categories[0]);
-        await databaseContext.AddRangeAsync(new List<Transaction>
-        {
-            new()
-            {
-                Amount = 10, Category = categories[0], CategoryId = categories[0].Id, IsDeleted = false,
-                Id = Guid.NewGuid(), InternalId = 1, IsSplit = false, SplitTransactions = [], Description = "Prueba1"
-            },
-            new()
-            {
-                Amount = 50, Category = categories[0], CategoryId = categories[0].Id, IsDeleted = false,
-                Id = Guid.NewGuid(), InternalId = 2, IsSplit = false, SplitTransactions = [], Description = "Prueba2"
-            }
-        });
-        databaseContext.SaveChangesAsync().Wait();
+        await DatabaseData.Populate(databaseContext);
     }
 
-    // TODO: see the exception thrown where this method ends (something of disposable... see the error). THIS IS NOT THAT IMPORTANT.
     public async Task DisposeAsync()
     {
         var databaseContext = Services.GetRequiredService<PfpTransactionsApiDatabaseContext>();
