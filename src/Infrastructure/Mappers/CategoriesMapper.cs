@@ -1,4 +1,5 @@
 using Domain.Categories;
+using Domain.Categories.Models;
 
 namespace Infrastructure.Mappers;
 

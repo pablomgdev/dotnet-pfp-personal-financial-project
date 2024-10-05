@@ -1,6 +1,6 @@
 using Domain.Limits;
 
-namespace Domain.Categories;
+namespace Domain.Categories.Models;
 
 public class Category
 {
