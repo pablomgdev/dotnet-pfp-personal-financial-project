@@ -1,4 +1,4 @@
-using Domain.Categories;
+using Domain.Categories.Models;
 
 namespace Infrastructure.Mappers;
 
@@ -18,6 +18,25 @@ public static class CategoriesMapper
             Name = persistenceCategoryModel.Name,
             FundId = persistenceCategoryModel.FundId,
             Limit = persistenceCategoryModel.Limit?.MapToDomainModel()
+        };
+    }
+
+    public static Persistence.EntityFramework.Models.Category? MapToInfrastructureModel(
+        this Category? domainModel)
+    {
+        if (domainModel is null) return null;
+        return new Persistence.EntityFramework.Models.Category
+        {
+            Id = domainModel.Id,
+            Name = domainModel.Name,
+            LimitId = domainModel.Limit?.Id,
+            Limit = domainModel.Limit?.MapToInfrastructureModel(),
+            FundId = domainModel.FundId,
+            CreatedDate = domainModel.CreatedDate,
+            UpdatedDate = domainModel.UpdatedDate,
+            DeletedDate = domainModel.DeletedDate,
+            IsDeleted = domainModel.IsDeleted,
+            UserId = domainModel.UserId
         };
     }
 }

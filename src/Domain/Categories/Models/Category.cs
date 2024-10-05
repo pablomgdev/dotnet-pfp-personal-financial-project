@@ -1,9 +1,12 @@
 using Domain.Limits;
 
-namespace Domain.Categories;
+namespace Domain.Categories.Models;
 
+// TODO: use value object instead of primitives and add a constructor with validations.
 public class Category
 {
+    public const int MaxLength = 50;
+
     public int Id { get; set; }
 
     public string? Name { get; set; }

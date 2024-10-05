@@ -1,10 +1,13 @@
 using System.Reflection;
 using System.Text.Json.Serialization;
 using Api.Options;
+using Application.Categories;
 using Application.Funds;
+using Application.Shared;
 using Application.Transactions.Get;
 using Asp.Versioning;
 using Asp.Versioning.ApiExplorer;
+using Domain.Categories.Repositories;
 using Domain.Funds.Repositories;
 using Domain.Funds.Services;
 using Domain.Transactions.Repositories;
@@ -50,10 +53,12 @@ var builder = WebApplication.CreateBuilder(args);
     // Application
     builder.Services.AddTransient<TransactionsGetter>();
     builder.Services.AddTransient<FundsCreator>();
+    builder.Services.AddTransient<CategoriesCreator>();
 
     // Domain (most of the cases this is instanciated directly in the application layer use of case)
     builder.Services.AddTransient<FundFinder>();
     builder.Services.AddTransient<FundSearcher>();
+    builder.Services.AddTransient<TextNormalizer>();
 
     // Infrastructure
     var databaseConnectionString = builder.Configuration.GetConnectionString("Database");
@@ -62,6 +67,7 @@ var builder = WebApplication.CreateBuilder(args);
 
     builder.Services.AddTransient<ITransactionsRepository, EfTransactionsRepository>();
     builder.Services.AddTransient<IFundsRepository, EfFundsRepository>();
+    builder.Services.AddTransient<ICategoriesRepository, EfCategoriesRepository>();
 }
 
 var app = builder.Build();

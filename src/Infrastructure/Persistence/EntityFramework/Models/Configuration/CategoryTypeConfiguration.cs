@@ -26,6 +26,7 @@ public class CategoryTypeConfiguration : IEntityTypeConfiguration<Category>
             .HasColumnType("boolean")
             .HasColumnName("is_deleted");
         builder.Property(e => e.Name)
+            // TODO: use global constant to avoid repeating it in create category use case.
             .HasMaxLength(50)
             .HasColumnName("name");
         builder.Property(e => e.UpdatedDate)

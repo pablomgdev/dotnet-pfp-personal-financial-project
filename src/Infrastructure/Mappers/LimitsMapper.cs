@@ -19,4 +19,20 @@ public static class LimitsMapper
             InternalId = persistenceLimitModel.InternalId
         };
     }
+
+    public static Persistence.EntityFramework.Models.Limit MapToInfrastructureModel(
+        this Limit domainModel)
+    {
+        return new Persistence.EntityFramework.Models.Limit
+        {
+            Id = domainModel.Id,
+            InternalId = domainModel?.InternalId,
+            Amount = domainModel?.Amount,
+            CreatedDate = domainModel?.CreatedDate,
+            UpdatedDate = domainModel?.UpdatedDate,
+            IsDeleted = domainModel?.IsDeleted,
+            DeletedDate = domainModel?.DeletedDate,
+            UserId = domainModel?.UserId
+        };
+    }
 }
