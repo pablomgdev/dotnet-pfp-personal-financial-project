@@ -6,7 +6,8 @@ namespace Test.Unit.Contracts.Funds;
 public static class CreateFundRequestMother
 {
     // TODO: create a random value generator for primitives with the parametrization like number of characters.
-    public static CreateFundRequest Apply(Guid? id = null, string? name = "dummy name",
+    // It should be named Apply but is less confuse to indicate that it generates an ID if it is not passed.
+    public static CreateFundRequest ApplyWithId(Guid? id = null, string? name = "dummy name",
         string? description = "dummy description")
     {
         // TODO: Check the use of the ?? operator. It was not working.
@@ -27,7 +28,8 @@ public static class CreateFundRequestMother
         );
     }
 
-    public static CreateFundRequest WithoutId(string? name = "dummy name", string? description = "dummy description")
+    public static CreateFundRequest ApplyWithoutId(string? name = "dummy name",
+        string? description = "dummy description")
     {
         return new CreateFundRequest(
             null,

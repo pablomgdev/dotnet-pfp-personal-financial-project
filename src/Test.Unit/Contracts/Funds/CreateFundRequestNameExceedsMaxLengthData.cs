@@ -12,8 +12,13 @@ public class CreateFundRequestNameExceedsMaxLengthData : IEnumerable<object[]>
     public IEnumerator<object[]> GetEnumerator()
     {
         yield return
-            [CreateFundRequestMother.WithoutId("TODO: generate random string that exceeds the limit of characters")];
+        [
+            CreateFundRequestMother.ApplyWithoutId("TODO: generate random string that exceeds the limit of characters")
+        ];
         yield return
-            [CreateFundRequestMother.Apply(name: "TODO: generate random string that exceeds the limit of characters")];
+        [
+            CreateFundRequestMother.ApplyWithId(
+                name: "TODO: generate random string that exceeds the limit of characters")
+        ];
     }
 }

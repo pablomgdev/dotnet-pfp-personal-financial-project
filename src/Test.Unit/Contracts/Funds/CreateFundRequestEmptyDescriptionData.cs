@@ -11,7 +11,7 @@ public class CreateFundRequestEmptyDescriptionData : IEnumerable<object[]>
 
     public IEnumerator<object[]> GetEnumerator()
     {
-        yield return [CreateFundRequestMother.WithoutId(description: string.Empty)];
-        yield return [CreateFundRequestMother.Apply(description: string.Empty)];
+        yield return [CreateFundRequestMother.ApplyWithoutId(description: string.Empty)];
+        yield return [CreateFundRequestMother.ApplyWithId(description: string.Empty)];
     }
 }

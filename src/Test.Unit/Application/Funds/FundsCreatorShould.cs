@@ -43,7 +43,7 @@ public class FundsCreatorShould
     {
         // Given
         var fund = FundMother.Random();
-        var parameters = CreateFundRequestMother.WithoutId();
+        var parameters = CreateFundRequestMother.ApplyWithoutId();
 
         _fundsRepository.Create(Arg.Any<Fund>()).ReturnsForAnyArgs(fund);
 
