@@ -1,8 +1,8 @@
 ## Ideas
-- [ ] CI/CD
-- [ ] Extract common from Test.Unit and Test.Integration to another project Test.Shared
-- [ ] Add text translations to spanish (exception message, for example)
+- [ ] Implement CI/CD pipeline
+- [ ] Extract shared components from Test.Unit and Test.Integration into a separate project (Test.Shared)
+- [ ]  Add Spanish translations (e.g., exception messages) in the API
 
 ## Pending
-- [ ] Move stuff other people can do to issues
-- [ ] See all the TODO's comments in the project
+- [ ] Convert outstanding tasks (like TODOs or areas for improvement) into issues so others can contribute
+- [ ] Review all TODO comments throughout the project
