@@ -14,7 +14,7 @@ A transaction is a user's income/expense.
 ## Categories
 A category is a label associated with a transaction to classify it and perform actions such as filtering or calculations based on it.
 ### General
-- [ ] The user can create categories for their income and expenses.
+- [x] The user can create categories for their income and expenses.
 - [ ] The user can delete categories for their income and expenses. They will need to indicate which category the expenses from the deleted category will be moved to.
 - [ ] The user can view their categories.
 - [ ] The user can recategorize their income and expenses.

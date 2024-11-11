@@ -13,7 +13,7 @@ Una operación es el ingreso/gasto de un usuario.
 ## Categorías
 Una categoría es una etiqueta que se asocia a una [operación](README.es-ES.md#operaciones) para clasificarla y poder realizar acciones, como filtros o cálculos, en base a esta.
 ### General
-- [ ] El usuario puede crear categorías para sus ingresos y gastos.
+- [x] El usuario puede crear categorías para sus ingresos y gastos.
 - [ ] El usuario puede eliminar categorías para sus ingresos y gastos. Se necesitará indicar a qué categoría pasaran los gastos que estaban en la borrada.
 - [ ] El usuario puede consultar sus categorías.
 - [ ] El usuario puede recategorizar sus ingresos y gastos.
