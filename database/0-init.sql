@@ -1,4 +1,6 @@
--- ALL IS COMMENTED AS DATABASE MIGRATIONS ARE USED (SEE INFRASTRUCTURE PROJECT).
+------------------------------------------------------------------------------------------------------------------------
+-- Old schema created before using Entity Framework.
+------------------------------------------------------------------------------------------------------------------------
 
 -- -- CREATE DATABASE "pfp-transactions-database"
 -- --     WITH
@@ -96,35 +98,38 @@
 --     "user_id"      UUID,
 --     CONSTRAINT fk__limits__category_id__categories FOREIGN KEY ("category_id") REFERENCES "categories" ("id")
 -- );
+    
 
-
--- Example data:
-INSERT INTO funds(
-    id, name, description, total_amount, created_date, updated_date, is_deleted, deleted_date, user_id)
-VALUES (gen_random_uuid(), 'Gastos esenciales', 'Gastos fijos y otros esenciales', 123.9, now(), now(), false, null, null);
-
-INSERT INTO categories(
-    name, created_date, updated_date, is_deleted, deleted_date, user_id, limit_id, fund_id)
-VALUES ('Gastos fijos', now(), now(), false, null, null, null, (SELECT "id" FROM funds WHERE internal_id = 1));
-
-INSERT INTO transactions(
-    id, amount, description, recurrence_id, is_split, transaction_not_split_internal_id, created_date, updated_date, is_deleted, deleted_date, user_id, category_id)
-VALUES (gen_random_uuid(), 89.45, 'Compra de la semana', null, false, null, now(), now(), false, null, null, 1);
-
-INSERT INTO recurrence_types(name)
-VALUES ('Daily'), ('Weekly'), ('Monthly');
-
-INSERT INTO recurrences(recurrence_type_id, created_date, updated_date, is_deleted, deleted_date, user_id)
-VALUES (1, now(), now(), false, null, null);
-
-INSERT INTO transactions(
-    id, amount, description, recurrence_id, is_split, transaction_not_split_internal_id, created_date, updated_date, is_deleted, deleted_date, user_id, category_id)
-VALUES (gen_random_uuid(), 34.45, 'Salida al cine', 1, true, null, now(), now(), false, null, null, 1);
-
-INSERT INTO transactions(
-    id, amount, description, recurrence_id, is_split, transaction_not_split_internal_id, created_date, updated_date, is_deleted, deleted_date, user_id, category_id)
-VALUES (gen_random_uuid(), 32.45, 'Salida al cine 2', 1, true, 2, now(), now(), false, null, null, 1);
-
-INSERT INTO transactions(
-    id, amount, description, recurrence_id, is_split, transaction_not_split_internal_id, created_date, updated_date, is_deleted, deleted_date, user_id, category_id)
-VALUES (gen_random_uuid(), 2.0, 'Salida al cine 3', 1, true, 2, now(), now(), false, null, null, 1);
+------------------------------------------------------------------------------------------------------------------------
+-- Example data to use in a docker database container
+------------------------------------------------------------------------------------------------------------------------
+    
+-- INSERT INTO funds(
+--     id, name, description, total_amount, created_date, updated_date, is_deleted, deleted_date, user_id)
+-- VALUES (gen_random_uuid(), 'Gastos esenciales', 'Gastos fijos y otros esenciales', 123.9, now(), now(), false, null, null);
+-- 
+-- INSERT INTO categories(
+--     name, created_date, updated_date, is_deleted, deleted_date, user_id, limit_id, fund_id)
+-- VALUES ('Gastos fijos', now(), now(), false, null, null, null, (SELECT "id" FROM funds WHERE internal_id = 1));
+-- 
+-- INSERT INTO transactions(
+--     id, amount, description, recurrence_id, is_split, transaction_not_split_internal_id, created_date, updated_date, is_deleted, deleted_date, user_id, category_id)
+-- VALUES (gen_random_uuid(), 89.45, 'Compra de la semana', null, false, null, now(), now(), false, null, null, 1);
+-- 
+-- INSERT INTO recurrence_types(name)
+-- VALUES ('Daily'), ('Weekly'), ('Monthly');
+-- 
+-- INSERT INTO recurrences(recurrence_type_id, created_date, updated_date, is_deleted, deleted_date, user_id)
+-- VALUES (1, now(), now(), false, null, null);
+-- 
+-- INSERT INTO transactions(
+--     id, amount, description, recurrence_id, is_split, transaction_not_split_internal_id, created_date, updated_date, is_deleted, deleted_date, user_id, category_id)
+-- VALUES (gen_random_uuid(), 34.45, 'Salida al cine', 1, true, null, now(), now(), false, null, null, 1);
+-- 
+-- INSERT INTO transactions(
+--     id, amount, description, recurrence_id, is_split, transaction_not_split_internal_id, created_date, updated_date, is_deleted, deleted_date, user_id, category_id)
+-- VALUES (gen_random_uuid(), 32.45, 'Salida al cine 2', 1, true, 2, now(), now(), false, null, null, 1);
+-- 
+-- INSERT INTO transactions(
+--     id, amount, description, recurrence_id, is_split, transaction_not_split_internal_id, created_date, updated_date, is_deleted, deleted_date, user_id, category_id)
+-- VALUES (gen_random_uuid(), 2.0, 'Salida al cine 3', 1, true, 2, now(), now(), false, null, null, 1);

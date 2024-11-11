@@ -1,9 +1,17 @@
+// IMPORTANT NOTE ABOUT THIS FILE:
+//  DO NOT USE the code below to generate the PostgreSQL file using "dbdiagram.io".
+//
+//  This file is no longer being updated.
+//
+//  It has been kept for reference, to document some of the initial database design decisions made during the design phase. 
+//  Reviewing this file can help you understand why certain decisions were made.
+//
+//  Some design decisions not documented here may still be found in the project's code (within the relevant classes, for example).
+
+
 /**************************************************************************************************\
 |                                Load this in dbdiagram.io                                         |
 \**************************************************************************************************/
-
-// IMPORTANT NOTE: IS NOT UPDATED AND IS ONLY TO KNOW WHY IT WAS DONE EVERY DECISIONS.
-//  DO NOT USED TO GENERATE THE POSTGRESQL FILE, JUST FOR WATCHING THE NOTES
 
 // Use DBML to define your database structure
 // Docs: https://dbml.dbdiagram.io/docs
