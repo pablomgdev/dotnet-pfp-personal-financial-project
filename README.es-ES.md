@@ -5,12 +5,8 @@
 
 [![Static Badge](https://img.shields.io/badge/lang-en-blue)](README.md) [![Static Badge](https://img.shields.io/badge/lang-es-red)](README.es-ES.md)
 
-> [!WARNING]
-> Los enlaces que no funcionen deberían ser arreglados.
-
 ## Descripción
-> [!NOTE]
-> Pendiente añadir descripción.
+Proyecto para gestionar gastos e ingresos y llevar un control sencillo de las finanzas personales.
 
 ## Sobre el Proyecto
 
@@ -19,11 +15,23 @@
 - **PostgreSQL 16.1**
 - **Docker**
 
+### Arquitectura
+La arquitectura de este proyecto está inspirada en **Arquitectura Hexagonal** y **Domain-Driven Design (DDD)**.
+
+Con el avance del desarrollo, algunas prácticas recomendadas han sido adaptadas o temporalmente flexibilizadas para optimizar la velocidad de implementación. No obstante, se prevé un proceso de refactorización posterior para alinear el código con los principios arquitectónicos originales.
+
+Por ahora, el enfoque se mantiene en completar una versión funcional inicial, tras lo cual podría realizarse dicha refactorización.
+
+### Levantar el Proyecto
+> [!NOTE]
+> Pendiente de añadir el contenido de esta sección.
+
 ### Documentación
-La documentación se puede encontrar en el **README.md**. A medida que vaya aumentando se ubicará en la carpeta [doc/](doc) del proyecto.
+- La documentación general se encuentra en este README.
+- A medida que el proyecto crezca, la documentación detallada se ubicará en la carpeta [doc](doc).
 
 #### Base de datos
-La documentación de la base de datos se puede encontrar en [doc/database](doc/database/).
+La documentación de la base de datos se puede encontrar [aquí](doc/database/).
 
 ## Funcionalidades
-Las funcionalidades del proyecto y su estado pueden verse en [doc/functionality/README.es-ES.md](doc/functionality/README.es-ES.md).
+Las funcionalidades del proyecto y su estado pueden verse [aquí](doc/functionality/README.es-ES.md).

@@ -6,8 +6,7 @@
 [![Static Badge](https://img.shields.io/badge/lang-en-blue)](README.md) [![Static Badge](https://img.shields.io/badge/lang-es-red)](README.es-ES.md)
 
 ## Description
-> [!NOTE]
-> Description is pending.
+A project for managing expenses and income to easily keep track of personal finances.
 
 ## About the Project
 
@@ -16,11 +15,23 @@
 - **PostgreSQL 16.1**
 - **Docker**
 
+### Architecture
+The architecture of this project is inspired by **Hexagonal Architecture** and **Domain-Driven Design (DDD)**.
+
+As the project has progressed, certain best practices have been adapted or temporarily adjusted to accelerate implementation. However, a refactoring process is planned to align the code with the original architectural principles.
+
+For now, the focus remains on completing an initial functional version, after which this refactoring could be carried out.
+
+### Launch the Project
+> [!NOTE]  
+> Content for this section is pending.
+
 ### Documentation
-Documentation can be found in README.md. As it increases in size, it will be moved to the [doc/](doc) project folder.
+- General documentation can be found in this README.
+- As the project grows, detailed documentation will be placed in the [doc](doc) folder.
 
 #### Database
-Database documentation can be found in [doc/database](doc/database/).
+Database documentation can be found [here](doc/database/).
 
-## Functionality
-Functionality and its status can be found in [doc/functionality](doc/functionality/README.md).
+## Functionalities
+The project's features and their current status can be viewed [here](doc/functionality/README.en-US.md).
