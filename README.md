@@ -23,15 +23,14 @@ As the project has progressed, certain best practices have been adapted or tempo
 For now, the focus remains on completing an initial functional version, after which this refactoring could be carried out.
 
 ### Launch the Project
-> [!NOTE]  
-> Content for this section is pending.
+Docker Compose can be used to launch the project.
 
 ### Documentation
 - General documentation can be found in this README.
 - As the project grows, detailed documentation will be placed in the [doc](doc) folder.
 
 #### Database
-Database documentation can be found [here](doc/database/).
-
+- The **database** folder contains the **data** folder when using Docker Compose for volumes.
+- Additional database documentation can be found
 ## Functionalities
 The project's features and their current status can be viewed [here](doc/functionality/README.en-US.md).

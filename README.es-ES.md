@@ -23,15 +23,15 @@ Con el avance del desarrollo, algunas prácticas recomendadas han sido adaptadas
 Por ahora, el enfoque se mantiene en completar una versión funcional inicial, tras lo cual podría realizarse dicha refactorización.
 
 ### Levantar el Proyecto
-> [!NOTE]
-> Pendiente de añadir el contenido de esta sección.
+Para levantar el proyecto puede usarse el Docker Compose.
 
 ### Documentación
 - La documentación general se encuentra en este README.
 - A medida que el proyecto crezca, la documentación detallada se ubicará en la carpeta [doc](doc).
 
 #### Base de datos
-La documentación de la base de datos se puede encontrar [aquí](doc/database/).
+- La carpeta **database** es donde se encuentra la carpeta **data** cuando se utiliza Docker Compose para los volúmenes.
+- Más documentación sobre la base de datos se puede encontrar [aquí](doc/database/).
 
 ## Funcionalidades
 Las funcionalidades del proyecto y su estado pueden verse [aquí](doc/functionality/README.es-ES.md).
