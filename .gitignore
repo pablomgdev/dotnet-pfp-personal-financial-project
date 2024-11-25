@@ -7,3 +7,4 @@ riderModule.iml
 **/.DS_Store
 database/data
 *.DotSettings.user
+**/node_modules
