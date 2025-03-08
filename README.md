@@ -31,6 +31,6 @@ Docker Compose can be used to launch the project.
 
 #### Database
 - The **database** folder contains the **data** folder when using Docker Compose for volumes.
-- Additional database documentation can be found
+- Additional database documentation can be found [here](doc/database/).
 ## Functionalities
-The project's features and their current status can be viewed [here](doc/functionality/README.en-US.md).
+The project's features and their current status can be viewed [here](doc/functionality/README.md).

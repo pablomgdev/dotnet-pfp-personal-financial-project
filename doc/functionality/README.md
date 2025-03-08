@@ -35,7 +35,7 @@ A fund is a record of the amount of money a user has, affected by the transactio
 - [ ] This option will add a transaction on the fund in question, with an internal, unremovable system category called "fund adjustment" (or similar).
 
 ## Global Fund
-The user must have a global fund to know how much money they have across all their funds.
+- [ ] The user must have a global fund to know how much money they have across all their funds.
 
 ## Transfers
 > [!NOTE]
